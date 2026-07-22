@@ -22,15 +22,9 @@
 
 #include "bsp/gpio.h"
 #include "bsp/uart.h"
-#include "bsp/adc.h"
 #include "bsp/led.h"
 
 #include "core/scheduler.h"
-#include "module/ui.h"
-#include "module/thd.h"
-#include "module/dds.h"
-#include "module/signal_out.h"
-#include "module/panel_ctrl.h"
 #include "module/image_view.h"
 #include "drv/jpg_rx.h"
 static void SystemClock_Config(void)

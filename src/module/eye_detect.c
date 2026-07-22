@@ -12,11 +12,11 @@
  * ================================================================== */
 
 /* 进入 MAYBE_CLOSED 的熵值下阈. H 低于此值可能已闭眼. */
-#define EYE_H_ENTER          6.4f
+#define EYE_H_ENTER          6.35f
 
 /* 离开 CLOSED / MAYBE_CLOSED 的熵值上阈. H 高于此值判定睁眼.
  * 与 EYE_H_ENTER 之间形成迟滞带, 抗抖动. */
-#define EYE_H_EXIT           6.5f
+#define EYE_H_EXIT           6.4f
 
 /* 从 MAYBE_CLOSED 升级到 CLOSED 所需的最短持续时间.
  * 生理眨眼约 100~400ms, 取 800ms 完全过滤. */

@@ -41,7 +41,7 @@
 #include "main.h"
 #include "stm32f1xx_it.h"
 #include "bsp/uart.h"   /* huart1, huart3 */
-#include "bsp/adc.h"    /* hdma_adc1 */
+/* #include "bsp/adc.h"    -- 本院赛工程未使用 ADC，避免 hdma_adc1 未定义符号 */
 
 /** @addtogroup STM32F1xx_HAL_Examples
   * @{
@@ -183,11 +183,15 @@ void USART3_IRQHandler(void)
     HAL_UART_IRQHandler(&huart3);
 }
 
-/* DMA1 Channel1 — ADC1 高速采样通路 */
+/* DMA1 Channel1 — ADC1 高速采样通路
+ * 本院赛工程未启用 ADC/DMA1_Ch1，故 handler 注释掉；若信号发生器分支需要，
+ * 恢复 bsp/adc 模块并把下面这段一起打开即可。 */
+#if 0
 void DMA1_Channel1_IRQHandler(void)
 {
     HAL_DMA_IRQHandler(&hdma_adc1);
 }
+#endif
 
 
 /**

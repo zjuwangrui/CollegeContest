@@ -39,12 +39,15 @@
 #define INFO_L2_Y      (INFO_Y0 + 2 * INFO_LINE_H)   /* fps / frames */
 #define INFO_L3_Y      (INFO_Y0 + 3 * INFO_LINE_H)   /* eye 状态提示 */
 
-/* 图片显示区: 抠图固定 48x36, 4x 最近邻放大 → 192x144, 水平居中. */
+/* 图片显示区: 抠图固定 48x36, 1:1 原尺寸显示, 水平+垂直居中于上部图像区.
+ *   IMG_X = (320 - 48) / 2 = 136
+ *   IMG_Y = (176 - 36) / 2 = 70
+ * 图像区: (136, 70) 到 (183, 105). */
 #define IMG_SRC_W       48U
 #define IMG_SRC_H       36U
-#define IMG_SCALE        4U
-#define IMG_X          ((LCD_X_LENGTH - IMG_SRC_W * IMG_SCALE) / 2U)   /* = 64 */
-#define IMG_Y            0U
+#define IMG_SCALE        1U
+#define IMG_X          ((LCD_X_LENGTH - IMG_SRC_W * IMG_SCALE) / 2U)
+#define IMG_Y          ((INFO_Y0       - IMG_SRC_H * IMG_SCALE) / 2U)
 
 /* ==================================================================
  *  状态
@@ -106,8 +109,8 @@ void image_view_task(void)
     }
 
     /* -------- 解码 + 显示 (核心一步) --------
-     * 源图 48x36 固定, 4x 最近邻放大 → 192x144.
-     * 居中放在 x=64, y=0. 上部 176px 全用于图片, 下 64px 留给 info. */
+     * 源图 48x36 固定, 1:1 原尺寸显示, 无插值无放大, 视觉最真实.
+     * 居中于 LCD 上部图像区: (136, 70) ~ (183, 105). */
     lcd_jpeg_info_t info;
     int rc = LCD_DrawJpegEx(IMG_X, IMG_Y, jpg, jpg_len, &info, IMG_SCALE);
     jpg_rx_release();                            /* 尽早释放, 让 rx 组下一帧 */
@@ -133,10 +136,8 @@ void image_view_task(void)
         s_fps_win_start = now;
     }
 
-    /* -------- LCD 信息区 -------- */
-    LCD_DrawTextf(4, INFO_L0_Y, WHITE,  BLACK,
-                  "size %ux%u  len %luB   ",
-                  info.width, info.height, jpg_len);
+    /* -------- LCD 信息区 --------
+     * L0 (INFO_L0_Y) 空着: 抠图尺寸软件端固定 48x36, 不再显示. */
     LCD_DrawTextf(4, INFO_L1_Y, YELLOW, BLACK,
                   "H=%.3f  Hr=%.3f   ",
                   (double)H, (double)Hr);
