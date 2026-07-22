@@ -76,6 +76,8 @@ INPUT D:\program\MiKTex\tex\latex\ctex\fontset\ctex-fontset-windows.def
 INPUT C:\WINDOWS\Fonts\msyh.ttc
 INPUT D:\program\MiKTex\tex\latex\ctex\config\ctex.cfg
 INPUT D:\program\MiKTex\tex\latex\ctex\config\ctex.cfg
+INPUT D:\program\MiKTex\tex\latex\multirow\multirow.sty
+INPUT D:\program\MiKTex\tex\latex\multirow\multirow.sty
 INPUT D:\program\MiKTex\tex\latex\svg\svg.sty
 INPUT D:\program\MiKTex\tex\latex\svg\svg.sty
 INPUT D:\program\MiKTex\tex\latex\koma-script\scrbase.sty

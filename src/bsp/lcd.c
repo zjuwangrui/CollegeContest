@@ -92,6 +92,14 @@ void LCD_PushRGB565Block(uint16_t x, uint16_t y,
     }
 }
 
+/* 直方图量化位数. 用于抑制 JPG 解码时 IDCT 引入的 ±1~2 灰度扰动.
+ *   0: 不量化, 256 级 (bin=g[i])           — 精度高, 但低熵图熵值虚高
+ *   2: 4 级/桶, 有效 64 级 (bin=g[i]&0xFC) — 吸收小抖动, 低熵图更接近源图熵
+ *   3: 8 级/桶, 有效 32 级                 — 更粗, 只在噪声很大时用
+ * 注: 桶粗了以后 H 上限从 8 变成 log2(256/2^N), 但相对熵仍除以 8, 数值会缩小
+ *     一点; 报告里注明即可. */
+#define HIST_QUANT_BITS   0
+
 /* 灰度 → RGB565: 高 5 位红, 高 6 位绿, 高 5 位蓝 */
 static inline uint16_t gray_to_rgb565(uint8_t g)
 {
@@ -166,11 +174,19 @@ static int tjd_out_cb(JDEC *jd, void *bitmap, JRECT *rect)
 
     const uint8_t *g = (const uint8_t *)bitmap;
 
-    /* 攒直方图: 8-bit 灰度直接进桶, 完整 256 级精度. */
+    /* 攒直方图: 8-bit 灰度进桶. 若 HIST_QUANT_BITS > 0, 低若干位截零,
+     * 吸收 JPG 解码 ±1~2 的扰动. */
     if (c->info) {
+#if HIST_QUANT_BITS > 0
+        const uint8_t mask = (uint8_t)(0xFFU << HIST_QUANT_BITS);
+#endif
         uint32_t n = (uint32_t)bw * bh;
         for (uint32_t i = 0; i < n; i++) {
+#if HIST_QUANT_BITS > 0
+            c->info->hist[g[i] & mask]++;
+#else
             c->info->hist[g[i]]++;
+#endif
         }
     }
 
