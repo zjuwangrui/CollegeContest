@@ -111,7 +111,7 @@
 
 %正文区
 \title{\Huge\bfseries 2026年信电学院电子设计竞赛}
-\date{\LARGE\bfseries 大二六组串口图像检测系统测试报告} %不显示日期
+\date{\LARGE\bfseries 大二06组串口图像检测系统报告} %不显示日期
 
 %文档
 \begin{document}
@@ -161,6 +161,40 @@ STM32接收串口数据，完成JPEG解码、图像显示以及熵值计算。
 利用JPEG文件大小与图像信息熵之间的关系，实现数据帧长度分级检测。
 系统整体结构框图如下：
 
+\begin{center}
+\begin{minipage}{0.9\textwidth}
+\begin{verbatim}
+      [PC 摄像头 + JPG2COM]
+              |
+              | 灰度化 + JPEG (Q=90) 压缩
+              v
+      [USB-TTL 模块]  ==串口 115200 8N1==>
+                                  |
+             +--------------------+---------------------+
+             |                                          |
+     [纯模拟检测模块]                           [STM32F103VE]
+     LM324 积分/放大                                    |
+     LM339 四档比较                                     |
+             |                              USART2 + DMA1_Ch6 常驻收数
+             v                                          |
+     [4 x LED 电量指示]                    FF D8 / FF D9 组帧
+                                                        |
+                                                        v
+                                              TJpgDec 灰度解码
+                                              (48x36 源图)
+                                                        |
+                                              +---------+---------+
+                                              |                   |
+                                     4x 最近邻放大         256 桶直方图
+                                     192x144                     |
+                                              |             H, Hr 计算
+                                              v                   |
+                                     FSMC -> ILI9341        闭眼检测
+                                     LCD 320x240 显示       状态机 -> LED_RED
+\end{verbatim}
+\end{minipage}
+\end{center}
+
 % 插入系统框图
 %\includegraphics[width=0.9\textwidth]{figure/system.png}
 
@@ -193,16 +227,25 @@ STM32接收串口数据，完成JPEG解码、图像显示以及熵值计算。
 
 \subsection{单片机方案}
 
-STM32作为图像处理核心，通过串口接收JPEG数据，
-利用JPEG解码库恢复图像，并通过显示屏显示。
+STM32F103VE 通过 USART2（PA2/PA3）以 115200 8N1 接收 JPEG 数据，
+采用 DMA1 通道 6 循环模式常驻收数，通过检测 SOI（\texttt{FF D8}）和
+EOI（\texttt{FF D9}）标记完成组帧。板载 CH340 USB 口对应的 USART1 本次
+用作电源供电，不参与数据传输。完整 JPG 帧交由 TJpgDec 库以 8-bit 灰度
+模式解码（\texttt{JD\_FORMAT}=2），得到源尺寸 48$\times$36 灰度像素。
+像素经 4 倍最近邻整数放大到 192$\times$144 后，通过 FSMC 并口写入
+ILI9341 液晶屏（320$\times$240）。
 
-同时统计图像灰度直方图，根据：
+在解码回调中同步累计 256 桶灰度直方图，供上层按题目公式计算图像绝对熵
+和相对熵。同时将当前帧的绝对熵输入闭眼检测状态机，用于拓展要求的
+闭眼判断和 LED 指示。
 
-\[
-H=-\sum_{i=0}^{255}p(i)\log_2p(i)
-\]
-
-计算图像绝对熵，并进一步得到相对熵。
+程序基于协作式时间片调度器组织两个任务：
+\begin{itemize}
+\item \texttt{jpg\_rx\_task}（周期 20 ms）：读取 DMA 环形缓冲 NDTR 计算
+新字节位置，按字节送入组帧状态机；
+\item \texttt{image\_view\_task}（每轮执行）：完整帧就绪后触发解码显示、
+熵值计算、帧率统计与闭眼检测。
+\end{itemize}
 
 
 \newpage
@@ -244,6 +287,91 @@ JPEG文件大小与图像纹理复杂程度相关。
 因此设计比较器参考电压分别对应上述四个文件长度区间。
 
 
+\subsection{图像熵值计算原理}
+
+对灰度图像，其在 256 灰度级上的经验分布为 $p(i) = \mathrm{hist}[i]/N$
+（$N$ 为像素总数，$i \in [0, 255]$），绝对熵按公式：
+
+\[
+H = -\sum_{i=0}^{255} p(i) \log_2 p(i)
+\]
+
+计算，单位为 bit，上限为 $H_{\max} = \log_2 256 = 8$。相对熵采用比例形式，
+与 PC 端 JPG2COM 面板 6 显示一致：
+
+\[
+H_r = \frac{H}{H_{\max}} = \frac{H}{8} \in [0, 1]
+\]
+
+单片机在 TJpgDec 解码回调中即时累积 256 桶直方图（每个 MCU 块解出即入桶），
+帧解完后一次性代入上述公式。由于单片机使用的是快速定点 IDCT，其重构像素
+与 PC 端 libjpeg 的高精度 IDCT 存在轻微差异，在灰度分布集中的低熵图像上，
+$\pm 1$ 的像素扰动会产生若干新桶，导致熵值稍高于 PC 端读数；高熵图像上
+差异不明显。
+
+
+\subsection{闭眼检测算法原理}
+
+眼睛区域的图像熵在两种状态下差异显著：睁眼时视野包含虹膜/瞳孔与巩膜的
+高对比结构，熵值较高；闭眼时视野被眼皮/皮肤覆盖，灰度分布集中，熵值明显
+下降。因此以每帧的绝对熵值为唯一输入即可完成闭眼判定。
+
+为过滤生理眨眼（100--400 ms 的短时熵下跌），并防止阈值临界处的抖动导致
+状态反复切换，本设计采用带迟滞和时间过滤的四态状态机：
+$\mathrm{OPEN} \to \mathrm{MAYBE\_CLOSED} \to \mathrm{CLOSED}
+\to \mathrm{MAYBE\_OPEN} \to \mathrm{OPEN}$。
+
+\begin{algorithm}[H]
+\caption{闭眼检测状态机}
+\begin{algorithmic}[1]
+\STATE 初始状态：$\mathrm{state} \leftarrow \mathrm{OPEN}$
+\WHILE{每收到一个新的熵值 $H$，当前时刻 $t$}
+    \IF{$\mathrm{state} = \mathrm{OPEN}$}
+        \IF{$H < H_{\mathrm{ENTER}}$}
+            \STATE $\mathrm{state} \leftarrow \mathrm{MAYBE\_CLOSED}$；记录 $t_0 \leftarrow t$
+        \ENDIF
+    \ELSIF{$\mathrm{state} = \mathrm{MAYBE\_CLOSED}$}
+        \IF{$H \ge H_{\mathrm{EXIT}}$}
+            \STATE $\mathrm{state} \leftarrow \mathrm{OPEN}$（视为眨眼，丢弃）
+        \ELSIF{$t - t_0 \ge T_{\mathrm{CLOSE}}$}
+            \STATE $\mathrm{state} \leftarrow \mathrm{CLOSED}$（确认闭眼，点亮 LED\_RED，LCD 显示提示）
+        \ENDIF
+    \ELSIF{$\mathrm{state} = \mathrm{CLOSED}$}
+        \IF{$H \ge H_{\mathrm{EXIT}}$}
+            \STATE $\mathrm{state} \leftarrow \mathrm{MAYBE\_OPEN}$；$t_0 \leftarrow t$
+        \ENDIF
+    \ELSIF{$\mathrm{state} = \mathrm{MAYBE\_OPEN}$}
+        \IF{$H < H_{\mathrm{EXIT}}$}
+            \STATE $\mathrm{state} \leftarrow \mathrm{CLOSED}$（熵未稳定，保持提示）
+        \ELSIF{$t - t_0 \ge T_{\mathrm{OPEN}}$}
+            \STATE $\mathrm{state} \leftarrow \mathrm{OPEN}$（睁眼确认，熄 LED，清 LCD）
+        \ENDIF
+    \ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+其中 $H_{\mathrm{ENTER}} < H_{\mathrm{EXIT}}$ 构成迟滞带避免临界抖动；
+$T_{\mathrm{CLOSE}}$ 决定检测延时，取值需要大于生理眨眼时长；
+$T_{\mathrm{OPEN}}$ 决定 CLOSED 恢复 OPEN 的稳定确认时间，避免熵值
+瞬时抖回就误撤销提示。本设计的默认参数如下（可根据实际测试环境调整）：
+
+\begin{table}[H]
+\centering
+\caption{闭眼检测状态机参数}
+\begin{tabular}{cll}
+\toprule
+参数 & 含义 & 取值 \\
+\midrule
+$H_{\mathrm{ENTER}}$ & 进入 MAYBE\_CLOSED 的熵下阈 & 6.4 bit \\
+$H_{\mathrm{EXIT}}$  & 睁眼判定熵上阈 & 6.5 bit \\
+$T_{\mathrm{CLOSE}}$ & 确认闭眼时长 & 800 ms \\
+$T_{\mathrm{OPEN}}$  & 恢复睁眼确认时长 & 300 ms \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
 \newpage
 \section{电路与程序设计}
 
@@ -263,17 +391,66 @@ JPEG文件大小与图像纹理复杂程度相关。
 
 \subsection{STM32程序设计}
 
-程序主要流程如下：
+程序采用 BSP / DRV / MODULE 三层分离结构，配合协作式时间片调度器
+运行两个非阻塞任务。核心数据通路如下：
 
 \begin{enumerate}
-\item 初始化串口；
-\item 接收JPEG数据；
-\item 数据缓存；
-\item JPEG解码；
-\item LCD显示；
-\item 熵值计算；
-\item 闭眼检测算法判断。
+\item PC 端 JPG2COM 软件 $\to$ USB-TTL 模块 $\to$ USART2 RX（PA3）；
+\item DMA1 通道 6 循环模式常驻写入 8 KB 环形缓冲区，无需 CPU 干预；
+\item \texttt{jpg\_rx\_task} 拉 NDTR 计算新写入位置，按字节扫描
+\texttt{FF D8}/\texttt{FF D9} 完成组帧，输出到 4 KB 单帧缓冲区；
+\item \texttt{image\_view\_task} 拿到完整帧后，调用 TJpgDec 解码
+（\texttt{JD\_FORMAT}=2 灰度直出），在输出回调中同步累计直方图；
+\item 每个 MCU 块经 4 倍最近邻放大后通过 FSMC 并口写入 ILI9341；
+\item 帧解完后计算熵值和帧率，喂入闭眼检测状态机，
+控制 LED\_RED 与 LCD 提示行。
 \end{enumerate}
+
+关键资源与占用如表 \ref{tab:mcu_res}。
+
+\begin{table}[H]
+\centering
+\caption{STM32 端资源使用}
+\label{tab:mcu_res}
+\begin{tabular}{lll}
+\toprule
+资源 & 用途 & 说明 \\
+\midrule
+USART2 (PA2/PA3)   & JPG 数据接收        & 115200 8N1 \\
+USART1 (PA9/PA10)  & 板载 CH340 USB      & 仅用于电源，不参与数据 \\
+DMA1 Channel 6     & USART2 RX，循环模式 & 8 KB 环形缓冲 \\
+FSMC Bank1 NORSRAM4 & ILI9341 命令/数据 & 16-bit 并口 \\
+GPIO PB5           & 闭眼指示红色 LED    & 低电平点亮 \\
+片内 SRAM          & DMA 环 + 单帧 + TJpgDec & 约 16.6 KB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+主要模块与源文件对应关系如表 \ref{tab:mcu_modules}。
+
+\begin{table}[H]
+\centering
+\caption{STM32 程序模块划分}
+\label{tab:mcu_modules}
+\begin{tabular}{ll}
+\toprule
+模块 & 主要职责 \\
+\midrule
+\texttt{bsp/uart}                    & USART1/2 初始化 \\
+\texttt{bsp/lcd} + \texttt{bsp\_ili9341\_lcd} & LCD 底层驱动 + JPG 显示上层封装 \\
+\texttt{lib/tjpgd}                   & ChaN 的 TJpgDec 灰度 JPEG 解码库 \\
+\texttt{drv/jpg\_rx}                 & DMA 收数 + FF D8/FF D9 组帧状态机 \\
+\texttt{module/image\_view}          & 主任务：解码、显示、熵值、帧率 \\
+\texttt{module/eye\_detect}          & 闭眼检测状态机 \\
+\texttt{core/scheduler}              & 协作式时间片调度器 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+LCD 显示布局如下：图片区经 4 倍最近邻放大为 192$\times$144，
+水平居中放置于 LCD 上部（$x=64$, $y=0$）；下方 4 行 16 像素高的信息区
+（$y=176 \sim 239$）依次显示图像尺寸与字节数、绝对/相对熵、显示帧率
+与累计帧数、闭眼状态。
 
 
 \subsection{芯片使用统计}
@@ -320,35 +497,59 @@ LM339& &比较检测\\
 
 \subsection{STM32图像显示测试}
 
+下表中实际值指PC软件上显示的实际帧率，测量值指stm32上测量的值.
+串口负载0.8
+\begin{table}[H]
+\small
+\centering
+\caption{图像显示测试结果}
+\begin{tabular}{|c|c|ccc|ccc|ccc|}
+\hline
+\multirow{2}{*}{测试项目} & \multirow{2}{*}{图像显示} & \multicolumn{3}{c|}{帧率 (fps)} & \multicolumn{3}{c|}{绝对熵} & \multicolumn{3}{c|}{相对熵} \\
+\cline{3-11}
+ &  & 实际值 & 测量值 & 相对误差 & 实际值 & 测量值 & 相对误差 & 实际值 & 测量值 & 相对误差 \\
+\hline
+ 395-169\_54\_8.jpg& 显示正常  & 21.0  &15.7  &  & 1.350 & 1.613 &  & 0.169 & 0.202 &  \\
+\hline
+500-308\_66\_7.jpg& 显示正常  & 16.0  &16.0  &  & 2.466 & 2.578 &  & 0.308 & 0.322 &  \\
+\hline
+620-410\_64\_9.jpg& 显示正常  & 13.0  &13.0  &  & 3.282 & 3.369 &  & 0.410 & 0.421 &  \\
+\hline
+1186-738\_88\_4& 显示正常  & 7.0  &7.1  &  & 5.907 & 5.973 &  & 0.738 & 0.747 &  \\
+\hline
+realEye1.jpg& 显示正常  & 7.0  &7.1  &  & 6.340 & 6.360 &  & 0.793 & 0.795 &  \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{闭眼检测测试}
+
+分别测试睁眼、生理眨眼与持续闭眼三种状态下的行为，并记录性能指标。
 
 \begin{table}[H]
 \centering
-\caption{图像显示测试结果}
-\begin{tabular}{ccc}
+\caption{闭眼检测行为验证}
+\begin{tabular}{lccc}
 \toprule
-测试项目&指标&结果\\
+状态 & 文件大小变化 & 熵值范围 & LED / LCD 提示 \\
 \midrule
-图像显示&是否正常&\\
-帧率&fps&\\
-熵值计算&是否准确&\\
+睁眼 & & & 灭 / 无提示 \\
+眨眼（100--400 ms）& & & 灭 / 无提示 \\
+持续闭眼（$\ge 800$ ms）& & & 亮 /  显示EYE CLOSED  \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-
-
-\subsection{闭眼检测测试}
-
-
 \begin{table}[H]
 \centering
-\caption{闭眼检测结果}
-\begin{tabular}{cccc}
+\caption{闭眼检测性能指标}
+\begin{tabular}{cc}
 \toprule
-状态&文件大小变化&LED显示&检测结果\\
+指标 & 实测 \\
 \midrule
-睁眼&&&\\
-闭眼&&&\\
+闭眼确认延时（预期 $\approx 800$ ms） & 600ms \\
+10 次眨眼漏判次数 &  \\
+睁眼稳定 60 s 内误触发次数 &  \\
 \bottomrule
 \end{tabular}
 \end{table}

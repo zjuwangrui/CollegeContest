@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.3.11)  22 JUL 2026 09:55
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.3.11)  22 JUL 2026 14:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1057,26 +1057,109 @@ Underfull \hbox (badness 10000) in paragraph at lines 124--134
 \tf@toc=\write6
 \openout6 = `report.toc'.
 
- [2] [3] [4] [5] [6]
+ [2]
+
+Package fontspec Info: 
+(fontspec)             Could not resolve font "FangSong/BI" (it probably
+(fontspec)             doesn't exist).
+
+
+Package fontspec Info: 
+(fontspec)             Could not resolve font "FangSong/B" (it probably
+(fontspec)             doesn't exist).
+
+
+Package fontspec Info: 
+(fontspec)             Could not resolve font "FangSong/I" (it probably
+(fontspec)             doesn't exist).
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'FangSong(0)' created for font 'FangSong'
+(fontspec)             with options [Script={CJK}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->"FangSong/OT:script=hani;language=dflt;"
+
+
+Overfull \hbox (34.73581pt too wide) in paragraph at lines 194--194
+[]             \TU/lmtt/m/n/12.045 |                              USART2 + DMA1_Ch6  \TU/FangSong(0)/m/n/12.045 常 驻 收 数 [] 
+ []
+
+
+Overfull \hbox (16.13829pt too wide) in paragraph at lines 194--194
+[]                                              \TU/lmtt/m/n/12.045 +---------+---------+[] 
+ []
+
+
+Overfull \hbox (16.13829pt too wide) in paragraph at lines 194--194
+[]                                              \TU/lmtt/m/n/12.045 |                   |[] 
+ []
+
+
+Overfull \hbox (40.93896pt too wide) in paragraph at lines 194--194
+[]                                     \TU/lmtt/m/n/12.045 4x  \TU/FangSong(0)/m/n/12.045 最 近 邻 放 大          \TU/lmtt/m/n/12.045 256  \TU/FangSong(0)/m/n/12.045 桶 直 方 图 [] 
+ []
+
+
+Overfull \hbox (9.9231pt too wide) in paragraph at lines 194--194
+[]                                     \TU/lmtt/m/n/12.045 192x144                     |[] 
+ []
+
+
+Overfull \hbox (34.74782pt too wide) in paragraph at lines 194--194
+[]                                              \TU/lmtt/m/n/12.045 |             H, Hr  \TU/FangSong(0)/m/n/12.045 计 算 [] 
+ []
+
+
+Overfull \hbox (16.13829pt too wide) in paragraph at lines 194--194
+[]                                              \TU/lmtt/m/n/12.045 v                   |[] 
+ []
+
+
+Overfull \hbox (22.32947pt too wide) in paragraph at lines 194--194
+[]                                     \TU/lmtt/m/n/12.045 FSMC -> ILI9341         \TU/FangSong(0)/m/n/12.045 闭 眼 检 测 [] 
+ []
+
+
+Overfull \hbox (78.1701pt too wide) in paragraph at lines 194--194
+[]                                     \TU/lmtt/m/n/12.045 LCD 320x240  \TU/FangSong(0)/m/n/12.045 显 示         状 态 机  \TU/lmtt/m/n/12.045 -> LED_RED[] 
+ []
+
+[3] [4] [5]
+Overfull \hbox (13.26015pt too wide) in paragraph at lines 319--323
+\TU/SimSun(0)/m/n/12.045 反 复 切 换，|  本 设 计 采 用 带 迟 滞 和 时 间 过 滤 的 四 态 状 态 机：| $[] \OMS/cmsy/m/n/12.045 ! [] !
+ []
+
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 325.
+[6] [7] [8] [9]
+Overfull \hbox (69.32455pt too wide) in paragraph at lines 506--523
+ [][] 
+ []
+
+[10] [11]
 
 Package caption Warning: Unused \captionsetup[figure] on input line 41.
 See the caption package documentation for explanation.
 
-[7] (D:\constructing_projects\CollegeContest\compile\report.aux)
+[12] (D:\constructing_projects\CollegeContest\compile\report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 00DE6ADC8517185F30FC3DE278FFE33A;1599.
+(rerunfilecheck)             Checksum: 7442070BF53826C2D1DB0DD02136020C;1843.
  ) 
 Here is how much of TeX's memory you used:
- 23281 strings out of 402987
- 472961 string characters out of 5454113
- 941791 words of memory out of 5000000
- 51627 multiletter control sequences out of 15000+600000
- 638037 words of font info for 109 fonts, out of 8000000 for 9000
+ 23498 strings out of 402987
+ 482666 string characters out of 5454113
+ 955873 words of memory out of 5000000
+ 51825 multiletter control sequences out of 15000+600000
+ 639654 words of font info for 124 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 94i,8n,133p,1228b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,11n,133p,1228b,905s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on D:\constructing_projects\CollegeContest\compile\report.xdv (7 pages, 48220 bytes).
+Output written on D:\constructing_projects\CollegeContest\compile\report.xdv (12 pages, 108096 bytes).

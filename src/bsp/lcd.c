@@ -108,25 +108,52 @@ static inline uint16_t gray_to_rgb565(uint8_t g)
 
 void LCD_PushGray8Block(uint16_t x, uint16_t y,
                         uint16_t w, uint16_t h,
+                        uint16_t scale,
                         const uint8_t *gray)
 {
-    if (w == 0 || h == 0) return;
+    if (w == 0 || h == 0 || scale == 0) return;
     if (x >= LCD_X_LENGTH || y >= LCD_Y_LENGTH) return;
-    uint16_t vw = w, vh = h;
-    if (x + vw > LCD_X_LENGTH) vw = LCD_X_LENGTH - x;
-    if (y + vh > LCD_Y_LENGTH) vh = LCD_Y_LENGTH - y;
 
-    if (vw == w && vh == h) {
-        ILI9341_OpenWindow(x, y, w, h);
-        LCD_CMD = CMD_SetPixel;
-        uint32_t n = (uint32_t)w * h;
-        while (n--) LCD_DAT = gray_to_rgb565(*gray++);
-    } else {
-        for (uint16_t row = 0; row < vh; row++) {
-            ILI9341_OpenWindow(x, y + row, vw, 1);
+    /* 显示区尺寸 (放大后) */
+    uint32_t dw = (uint32_t)w * scale;
+    uint32_t dh = (uint32_t)h * scale;
+
+    /* 屏内裁剪 */
+    uint16_t vdw = (dw > (uint32_t)(LCD_X_LENGTH - x)) ? (LCD_X_LENGTH - x) : (uint16_t)dw;
+    uint16_t vdh = (dh > (uint32_t)(LCD_Y_LENGTH - y)) ? (LCD_Y_LENGTH - y) : (uint16_t)dh;
+
+    if (scale == 1) {
+        /* scale=1 快速路径: 无重复, 单次开窗连续写 */
+        if (vdw == w && vdh == h) {
+            ILI9341_OpenWindow(x, y, w, h);
             LCD_CMD = CMD_SetPixel;
-            const uint8_t *p = gray + (uint32_t)row * w;
-            for (uint16_t c = 0; c < vw; c++) LCD_DAT = gray_to_rgb565(*p++);
+            uint32_t n = (uint32_t)w * h;
+            while (n--) LCD_DAT = gray_to_rgb565(*gray++);
+        } else {
+            for (uint16_t row = 0; row < vdh; row++) {
+                ILI9341_OpenWindow(x, y + row, vdw, 1);
+                LCD_CMD = CMD_SetPixel;
+                const uint8_t *p = gray + (uint32_t)row * w;
+                for (uint16_t c = 0; c < vdw; c++) LCD_DAT = gray_to_rgb565(*p++);
+            }
+        }
+        return;
+    }
+
+    /* scale > 1: 每源像素在 LCD 上画 scale 宽; 每源行在 LCD 上重复 scale 遍.
+     * 逐显示行开窗, 通过 (drow / scale) 找源行. */
+    for (uint16_t drow = 0; drow < vdh; drow++) {
+        uint16_t srow = drow / scale;
+        ILI9341_OpenWindow(x, y + drow, vdw, 1);
+        LCD_CMD = CMD_SetPixel;
+        const uint8_t *p = gray + (uint32_t)srow * w;
+        uint16_t written = 0;
+        for (uint16_t scol = 0; scol < w && written < vdw; scol++) {
+            uint16_t rgb = gray_to_rgb565(p[scol]);
+            uint16_t reps = scale;
+            if (written + reps > vdw) reps = vdw - written;
+            for (uint16_t k = 0; k < reps; k++) LCD_DAT = rgb;
+            written += reps;
         }
     }
 }
@@ -148,6 +175,7 @@ typedef struct {
     uint32_t total;
     uint32_t pos;
     uint16_t ox, oy;              /* 屏幕上的左上角 */
+    uint16_t scale;               /* 最近邻整数倍放大 (>=1) */
     lcd_jpeg_info_t *info;        /* 可选: 尺寸 + 直方图 */
 } jpg_ctx_t;
 
@@ -169,13 +197,15 @@ static int tjd_out_cb(JDEC *jd, void *bitmap, JRECT *rect)
 
     uint16_t bw = rect->right  - rect->left + 1;
     uint16_t bh = rect->bottom - rect->top  + 1;
-    uint16_t sx = c->ox + rect->left;
-    uint16_t sy = c->oy + rect->top;
+
+    /* 屏幕位置: 源坐标 × scale + 左上角偏移 */
+    uint16_t sx = c->ox + (uint16_t)(rect->left * c->scale);
+    uint16_t sy = c->oy + (uint16_t)(rect->top  * c->scale);
 
     const uint8_t *g = (const uint8_t *)bitmap;
 
-    /* 攒直方图: 8-bit 灰度进桶. 若 HIST_QUANT_BITS > 0, 低若干位截零,
-     * 吸收 JPG 解码 ±1~2 的扰动. */
+    /* 攒直方图: 基于源像素 (未放大), 保证熵值不受 scale 影响.
+     * 若 HIST_QUANT_BITS > 0, 低若干位截零, 吸收 JPG 解码 ±1~2 的扰动. */
     if (c->info) {
 #if HIST_QUANT_BITS > 0
         const uint8_t mask = (uint8_t)(0xFFU << HIST_QUANT_BITS);
@@ -190,16 +220,19 @@ static int tjd_out_cb(JDEC *jd, void *bitmap, JRECT *rect)
         }
     }
 
-    LCD_PushGray8Block(sx, sy, bw, bh, g);
+    LCD_PushGray8Block(sx, sy, bw, bh, c->scale, g);
     return 1;   /* 非 0: 继续解码 */
 }
 
 int LCD_DrawJpegEx(uint16_t x, uint16_t y,
                    const uint8_t *jpg_buf, uint32_t jpg_len,
-                   lcd_jpeg_info_t *info)
+                   lcd_jpeg_info_t *info,
+                   uint16_t scale)
 {
+    if (scale == 0) scale = 1;
+
     JDEC jd;
-    jpg_ctx_t ctx = { jpg_buf, jpg_len, 0, x, y, info };
+    jpg_ctx_t ctx = { jpg_buf, jpg_len, 0, x, y, scale, info };
 
     if (info) {
         info->width = info->height = 0;
@@ -214,7 +247,9 @@ int LCD_DrawJpegEx(uint16_t x, uint16_t y,
         info->height = jd.height;
     }
 
-    /* scale=0 → 1:1, 严格不缩小 */
+    /* jd_decomp 的 scale 参数是 JPG 内部 IDCT 缩小 (1/2, 1/4, 1/8), 与我们的
+     * 最近邻放大无关. 传 0 (=1:1) 让 tjpgd 输出源分辨率, 我们在 tjd_out_cb
+     * 里手动放大. */
     rc = jd_decomp(&jd, tjd_out_cb, 0);
     return (int)rc;
 }
@@ -222,5 +257,5 @@ int LCD_DrawJpegEx(uint16_t x, uint16_t y,
 int LCD_DrawJpeg(uint16_t x, uint16_t y,
                  const uint8_t *jpg_buf, uint32_t jpg_len)
 {
-    return LCD_DrawJpegEx(x, y, jpg_buf, jpg_len, NULL);
+    return LCD_DrawJpegEx(x, y, jpg_buf, jpg_len, NULL, 1);
 }

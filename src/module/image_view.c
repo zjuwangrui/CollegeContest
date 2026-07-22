@@ -39,6 +39,13 @@
 #define INFO_L2_Y      (INFO_Y0 + 2 * INFO_LINE_H)   /* fps / frames */
 #define INFO_L3_Y      (INFO_Y0 + 3 * INFO_LINE_H)   /* eye 状态提示 */
 
+/* 图片显示区: 抠图固定 48x36, 4x 最近邻放大 → 192x144, 水平居中. */
+#define IMG_SRC_W       48U
+#define IMG_SRC_H       36U
+#define IMG_SCALE        4U
+#define IMG_X          ((LCD_X_LENGTH - IMG_SRC_W * IMG_SCALE) / 2U)   /* = 64 */
+#define IMG_Y            0U
+
 /* ==================================================================
  *  状态
  * ================================================================== */
@@ -87,28 +94,6 @@ void image_view_init(void)
 
 void image_view_task(void)
 {
-    /* -------- 诊断行: 无论有没有帧, 每次任务都刷一次 --------
-     * head 应该随着 PC 发送不断增长 (环形回卷).
-     * hex 应能看到 FF D8 ... FF D9 这样的 JPG 头尾.
-     * 只在没有正常显示图片时开着, 稳定后可以删掉这段. */
-    static uint32_t s_diag_last = 0;
-    uint32_t tick = HAL_GetTick();
-    if (tick - s_diag_last >= 200) {              /* 5Hz 刷新, 别刷太快 */
-        s_diag_last = tick;
-        uint16_t head = jpg_rx_dma_head();
-        uint8_t  uerr = jpg_rx_usart_errors();
-        LCD_DrawTextf(4, 80, GREY, BLACK,
-            "head=%u frm=%lu drop=%lu ovf=%lu uerr=%02X   ",
-            head, jpg_rx_frame_count(),
-            jpg_rx_drop_count(), jpg_rx_overflow_count(), uerr);
-        LCD_DrawTextf(4, 100, GREY, BLACK,
-            "last8: %02X %02X %02X %02X %02X %02X %02X %02X   ",
-            jpg_rx_ring_peek(7), jpg_rx_ring_peek(6),
-            jpg_rx_ring_peek(5), jpg_rx_ring_peek(4),
-            jpg_rx_ring_peek(3), jpg_rx_ring_peek(2),
-            jpg_rx_ring_peek(1), jpg_rx_ring_peek(0));
-    }
-
     uint32_t     jpg_len = 0;
     const uint8_t *jpg   = jpg_rx_get_frame(&jpg_len);
     if (!jpg) return;                            /* 没新帧, 直接返回 */
@@ -120,9 +105,11 @@ void image_view_task(void)
         s_first_frame = false;
     }
 
-    /* -------- 解码 + 显示 (核心一步) -------- */
+    /* -------- 解码 + 显示 (核心一步) --------
+     * 源图 48x36 固定, 4x 最近邻放大 → 192x144.
+     * 居中放在 x=64, y=0. 上部 176px 全用于图片, 下 64px 留给 info. */
     lcd_jpeg_info_t info;
-    int rc = LCD_DrawJpegEx(0, 0, jpg, jpg_len, &info);
+    int rc = LCD_DrawJpegEx(IMG_X, IMG_Y, jpg, jpg_len, &info, IMG_SCALE);
     jpg_rx_release();                            /* 尽早释放, 让 rx 组下一帧 */
 
     if (rc != 0) {
@@ -136,14 +123,6 @@ void image_view_task(void)
     float    H    = entropy_from_hist(info.hist, npix);
     float    Hr   = H / 8.0f;                    /* 与 PC 端一致: 0~1 的比例 */
 
-    /* 直方图总和 vs 像素总数: 用来验证 tjpgd 输出被完整消费.
-     * 若 hist_sum != npix, 说明输出回调漏了/多了像素. 稳定后删除. */
-    uint32_t hist_sum = 0;
-    for (int i = 0; i < 256; i++) hist_sum += info.hist[i];
-    LCD_DrawTextf(4, 60, GREY, BLACK,
-                  "npix=%lu hsum=%lu %s   ",
-                  npix, hist_sum, (hist_sum == npix) ? "OK" : "MISMATCH");
-
     /* -------- 帧速 (每 1s 更新一次) -------- */
     s_fps_frames++;
     uint32_t now = HAL_GetTick();
@@ -152,10 +131,6 @@ void image_view_task(void)
         s_last_fps      = (float)s_fps_frames * 1000.0f / (float)dt;
         s_fps_frames    = 0;
         s_fps_win_start = now;
-
-        // UART_Printf("[img] %ux%u  %lu B  H=%.3f  Hr=%.2f%%  fps=%.1f\r\n",
-        //             info.width, info.height, jpg_len,
-        //             (double)H, (double)Hr, (double)s_last_fps);
     }
 
     /* -------- LCD 信息区 -------- */
