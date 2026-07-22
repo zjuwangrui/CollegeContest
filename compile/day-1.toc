@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {一、}系统方案}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}控制系统的选择}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}循迹模块的论证与选择}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}电机模块的论证与选择}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}陀螺仪的论证与选择}{3}{subsection.1.4}%
+\contentsline {section}{\numberline {二、}系统理论分析与计算}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}本设计的结构搭建和分析}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}循迹处理}{4}{subsection.2.2}%
+\contentsline {section}{\numberline {三、}电路与程序设计}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}电路设计}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}程序设计}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}逻辑系统框图}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}电源的选用及供电方式}{5}{subsection.3.4}%
+\contentsline {section}{\numberline {四、}测试方案与测试结果}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}测试说明}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}测试结果}{6}{subsection.4.2}%
