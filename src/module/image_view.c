@@ -19,21 +19,25 @@
  */
 
 #include "module/image_view.h"
+#include "module/eye_detect.h"
 #include "drv/jpg_rx.h"
 #include "bsp/lcd.h"
 #include "bsp/uart.h"
+#include "bsp/led.h"
 #include "stm32f1xx_hal.h"
 #include <math.h>
 #include <string.h>
 
 /* ==================================================================
  *  显示布局 (硬编码, 简单直接)
+ *  信息区 4 行, 每行 16 px 高, 占屏底部 64 px.
  * ================================================================== */
-#define INFO_Y0        192U                     /* 信息区起始 y */
+#define INFO_Y0        176U                     /* 信息区起始 y (上移 16 给 L3) */
 #define INFO_LINE_H     16U                     /* 8x16 字体行高 */
-#define INFO_L0_Y      (INFO_Y0 + 0 * INFO_LINE_H)
-#define INFO_L1_Y      (INFO_Y0 + 1 * INFO_LINE_H)
-#define INFO_L2_Y      (INFO_Y0 + 2 * INFO_LINE_H)
+#define INFO_L0_Y      (INFO_Y0 + 0 * INFO_LINE_H)   /* size / len   */
+#define INFO_L1_Y      (INFO_Y0 + 1 * INFO_LINE_H)   /* H / Hr       */
+#define INFO_L2_Y      (INFO_Y0 + 2 * INFO_LINE_H)   /* fps / frames */
+#define INFO_L3_Y      (INFO_Y0 + 3 * INFO_LINE_H)   /* eye 状态提示 */
 
 /* ==================================================================
  *  状态
@@ -73,6 +77,8 @@ void image_view_init(void)
     LCD_DrawTextC(4, 44,  GREY,  BLACK, "waiting for frame...");
 
     jpg_rx_init();
+    LED_Init();
+    eye_detect_init();
 
     s_fps_frames    = 0;
     s_fps_win_start = HAL_GetTick();
@@ -162,4 +168,26 @@ void image_view_task(void)
     LCD_DrawTextf(4, INFO_L2_Y, GREEN,  BLACK,
                   "fps %.1f  frm %lu    ",
                   (double)s_last_fps, jpg_rx_frame_count());
+    LCD_DrawTextf(4, INFO_L3_Y, CYAN, BLACK,
+                  "eye: %s   ",
+                  eye_detect_is_closed() ? "CLOSED" : "OPEN");
+
+    /* -------- 闭眼检测 (拓展题 2) --------
+     * 喂 H 给状态机, 输出稳定的 OPEN/CLOSED. 只在跨状态时刷 LCD/LED,
+     * 减少 FSMC 无谓写和 LED IO 抖动. */
+    eye_detect_feed(H, now);
+    bool closed = eye_detect_is_closed();
+
+    static bool s_prev_closed = false;
+    if (closed != s_prev_closed) {
+        LED_Set(LED_RED, closed);
+        if (closed) {
+            LCD_DrawTextf(4, INFO_L3_Y, GREEN, BLACK,
+                          "*** EYE CLOSED ***  ");
+        } else {
+            /* 睁眼: 用黑底空串把整行擦掉 */
+            LCD_FillRect(0, INFO_L3_Y, LCD_X_LENGTH, INFO_LINE_H, BLACK);
+        }
+        s_prev_closed = closed;
+    }
 }
