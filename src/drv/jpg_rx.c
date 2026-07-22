@@ -1,13 +1,13 @@
 /*
- * jpg_rx.c —— JPG 图像接收驱动 (USART1 + DMA1_Ch5 + marker 扫描)
+ * jpg_rx.c —— JPG 图像接收驱动 (USART2 + DMA1_Ch6 + marker 扫描)
  *
  * DMA 常驻循环写入 s_ring[]. jpg_rx_task 拉 NDTR 计算写入位置,
  * 逐字节喂给状态机, 遇到 FF D8 开新帧, 遇到 FF D9 结帧.
  *
  * 与 drv/serial_screen 的区别:
- *   - serial_screen 用 RXNE 中断, 每字节触发, 适合低速指令帧;
- *   - jpg_rx      用 DMA + 任务轮询, 适合高速 (11.5KB/s) 图像流.
- *   IRQ 上下文除了 DMA 硬件自身, 用户代码不在中断里跑, 简单.
+ *   - serial_screen 用 USART2 RXNE 中断, 逐字节收指令帧, 适合低速屏协议;
+ *   - jpg_rx        用 USART2 DMA + 任务轮询, 适合高速 (11.5KB/s) 图像流.
+ *   两者同占 USART2, 只能二选一. 本文件 init 时会主动关掉 RXNE 中断.
  */
 
 #include "drv/jpg_rx.h"
@@ -20,7 +20,7 @@
 static uint8_t         s_ring[JPG_RX_RING_SZ];
 static uint16_t        s_ring_tail = 0;              /* 已扫描到的位置 */
 
-static DMA_HandleTypeDef s_hdma_usart1_rx;
+static DMA_HandleTypeDef s_hdma_usart2_rx;
 
 /* 单帧组装. 被状态机写入, 完成后置 s_frame_ready. */
 static uint8_t          s_frame[JPG_RX_FRAME_MAX];
@@ -37,30 +37,34 @@ static uint32_t         s_drops     = 0;
 static uint32_t         s_overflows = 0;
 
 /* ==================================================================
- *  DMA 硬件初始化 (DMA1_Ch5 = USART1_RX)
+ *  DMA 硬件初始化 (DMA1_Ch6 = USART2_RX)
  * ================================================================== */
 static void jpg_rx_dma_init(void)
 {
     __HAL_RCC_DMA1_CLK_ENABLE();
 
-    s_hdma_usart1_rx.Instance                 = DMA1_Channel5;
-    s_hdma_usart1_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;
-    s_hdma_usart1_rx.Init.PeriphInc           = DMA_PINC_DISABLE;
-    s_hdma_usart1_rx.Init.MemInc              = DMA_MINC_ENABLE;
-    s_hdma_usart1_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    s_hdma_usart1_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
-    s_hdma_usart1_rx.Init.Mode                = DMA_CIRCULAR;
-    s_hdma_usart1_rx.Init.Priority            = DMA_PRIORITY_HIGH;
+    s_hdma_usart2_rx.Instance                 = DMA1_Channel6;
+    s_hdma_usart2_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;
+    s_hdma_usart2_rx.Init.PeriphInc           = DMA_PINC_DISABLE;
+    s_hdma_usart2_rx.Init.MemInc              = DMA_MINC_ENABLE;
+    s_hdma_usart2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    s_hdma_usart2_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+    s_hdma_usart2_rx.Init.Mode                = DMA_CIRCULAR;
+    s_hdma_usart2_rx.Init.Priority            = DMA_PRIORITY_HIGH;
 
-    if (HAL_DMA_Init(&s_hdma_usart1_rx) != HAL_OK) while (1);
+    if (HAL_DMA_Init(&s_hdma_usart2_rx) != HAL_OK) while (1);
 
-    __HAL_LINKDMA(&huart1, hdmarx, s_hdma_usart1_rx);
+    __HAL_LINKDMA(&huart2, hdmarx, s_hdma_usart2_rx);
 
-    /* USART1 允许 DMA 接收. HAL_DMA_Start 只启动 DMA, 不动 UART 状态机. */
-    SET_BIT(huart1.Instance->CR3, USART_CR3_DMAR);
+    /* 关掉 RXNE 中断: 避免与 drv/serial_screen 的字节回调抢总线 */
+    __HAL_UART_DISABLE_IT(&huart2, UART_IT_RXNE);
+    HAL_NVIC_DisableIRQ(USART2_IRQn);
 
-    HAL_DMA_Start(&s_hdma_usart1_rx,
-                  (uint32_t)&huart1.Instance->DR,
+    /* USART2 允许 DMA 接收. HAL_DMA_Start 只启动 DMA, 不动 UART 状态机. */
+    SET_BIT(huart2.Instance->CR3, USART_CR3_DMAR);
+
+    HAL_DMA_Start(&s_hdma_usart2_rx,
+                  (uint32_t)&huart2.Instance->DR,
                   (uint32_t)s_ring,
                   JPG_RX_RING_SZ);
 }
@@ -127,7 +131,7 @@ void jpg_rx_task(void)
 {
     /* DMA 剩余传输数 → 已写入字节数 (head 位置).
      * 循环模式下, CNDTR 从 SZ 递减到 0 再重装为 SZ. */
-    uint16_t ndtr = (uint16_t)__HAL_DMA_GET_COUNTER(&s_hdma_usart1_rx);
+    uint16_t ndtr = (uint16_t)__HAL_DMA_GET_COUNTER(&s_hdma_usart2_rx);
     uint16_t head = (uint16_t)(JPG_RX_RING_SZ - ndtr);
     if (head >= JPG_RX_RING_SZ) head = 0;           /* 边界防御 */
 
@@ -155,3 +159,20 @@ void jpg_rx_release(void)
 uint32_t jpg_rx_frame_count   (void) { return s_frames;    }
 uint32_t jpg_rx_drop_count    (void) { return s_drops;     }
 uint32_t jpg_rx_overflow_count(void) { return s_overflows; }
+
+uint16_t jpg_rx_dma_head(void)
+{
+    uint16_t ndtr = (uint16_t)__HAL_DMA_GET_COUNTER(&s_hdma_usart2_rx);
+    uint16_t head = (uint16_t)(JPG_RX_RING_SZ - ndtr);
+    if (head >= JPG_RX_RING_SZ) head = 0;
+    return head;
+}
+
+uint8_t jpg_rx_ring_peek(uint16_t offset_from_head)
+{
+    /* 从 head 往回数 offset 位, 回卷 */
+    uint16_t head = jpg_rx_dma_head();
+    uint32_t idx  = ((uint32_t)head + JPG_RX_RING_SZ - offset_from_head - 1)
+                    % JPG_RX_RING_SZ;
+    return s_ring[idx];
+}

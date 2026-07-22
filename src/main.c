@@ -67,7 +67,7 @@ static void SystemClock_Config(void)
 /* ===== 任务表 (在这里增删) ===== */
 
 
-/* jpg_rx: 20ms 从 DMA1_Ch5 环形区拉字节, 按 FF D8 / FF D9 组帧 */
+/* jpg_rx: 20ms 从 DMA1_Ch6 (USART2_RX) 环形区拉字节, 按 FF D8 / FF D9 组帧 */
 static sched_task_t t_jpg_rx     = { .run = jpg_rx_task,      .period_ms = 20,   .name = "jpgrx" };
 /* image_view: 每轮都跑, 有帧就解码显示 + 算熵 + 更新 FPS */
 static sched_task_t t_image_view = { .run = image_view_task,  .period_ms = 0,    .name = "imgv"  };
@@ -80,7 +80,7 @@ int main(void)
 
     /* ---- BSP ---- */
     MX_GPIO_Init();
-    MX_USART1_UART_Init();          /* 调试口 & JPG 接收 (PA9/PA10) */
+    MX_USART2_UART_Init();          /* JPG 图像接收 (PA2/PA3), 由 jpg_rx 用 DMA 抢占 */
 
     /* ---- 业务模块 ---- */
     image_view_init();              /* 内部会 LCD_Init 和 jpg_rx_init */

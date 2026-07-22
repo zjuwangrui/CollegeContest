@@ -69,7 +69,7 @@ void image_view_init(void)
     LCD_Init();
     LCD_Clear(BLACK);
     LCD_DrawTextC(4, 4,   WHITE, BLACK, "College Contest 2026");
-    LCD_DrawTextC(4, 24,  CYAN,  BLACK, "JPG stream over USART1");
+    LCD_DrawTextC(4, 24,  CYAN,  BLACK, "JPG stream over USART2");
     LCD_DrawTextC(4, 44,  GREY,  BLACK, "waiting for frame...");
 
     jpg_rx_init();
@@ -81,6 +81,27 @@ void image_view_init(void)
 
 void image_view_task(void)
 {
+    /* -------- 诊断行: 无论有没有帧, 每次任务都刷一次 --------
+     * head 应该随着 PC 发送不断增长 (环形回卷).
+     * hex 应能看到 FF D8 ... FF D9 这样的 JPG 头尾.
+     * 只在没有正常显示图片时开着, 稳定后可以删掉这段. */
+    static uint32_t s_diag_last = 0;
+    uint32_t tick = HAL_GetTick();
+    if (tick - s_diag_last >= 200) {              /* 5Hz 刷新, 别刷太快 */
+        s_diag_last = tick;
+        uint16_t head = jpg_rx_dma_head();
+        LCD_DrawTextf(4, 80, GREY, BLACK,
+            "head=%u  frm=%lu drop=%lu ovf=%lu    ",
+            head, jpg_rx_frame_count(),
+            jpg_rx_drop_count(), jpg_rx_overflow_count());
+        LCD_DrawTextf(4, 100, GREY, BLACK,
+            "last8: %02X %02X %02X %02X %02X %02X %02X %02X   ",
+            jpg_rx_ring_peek(7), jpg_rx_ring_peek(6),
+            jpg_rx_ring_peek(5), jpg_rx_ring_peek(4),
+            jpg_rx_ring_peek(3), jpg_rx_ring_peek(2),
+            jpg_rx_ring_peek(1), jpg_rx_ring_peek(0));
+    }
+
     uint32_t     jpg_len = 0;
     const uint8_t *jpg   = jpg_rx_get_frame(&jpg_len);
     if (!jpg) return;                            /* 没新帧, 直接返回 */
@@ -117,9 +138,9 @@ void image_view_task(void)
         s_fps_frames    = 0;
         s_fps_win_start = now;
 
-        UART_Printf("[img] %ux%u  %lu B  H=%.3f  Hr=%.2f%%  fps=%.1f\r\n",
-                    info.width, info.height, jpg_len,
-                    (double)H, (double)Hr, (double)s_last_fps);
+        // UART_Printf("[img] %ux%u  %lu B  H=%.3f  Hr=%.2f%%  fps=%.1f\r\n",
+        //             info.width, info.height, jpg_len,
+        //             (double)H, (double)Hr, (double)s_last_fps);
     }
 
     /* -------- LCD 信息区 -------- */
