@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.3.11)  22 JUL 2026 16:46
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.3.11)  22 JUL 2026 19:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1130,13 +1130,9 @@ Overfull \hbox (78.1701pt too wide) in paragraph at lines 194--194
  []
 
 [3] [4] [5]
-Overfull \hbox (13.26015pt too wide) in paragraph at lines 319--323
-\TU/SimSun(0)/m/n/12.045 反 复 切 换，|  本 设 计 采 用 带 迟 滞 和 时 间 过 滤 的 四 态 状 态 机：| $[] \OMS/cmsy/m/n/12.045 ! [] !
- []
-
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 325.
-[6] [7] [8] [9]
-Overfull \hbox (69.32455pt too wide) in paragraph at lines 506--523
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 345.
+ [6] [7] [8] [9]
+Overfull \hbox (69.32455pt too wide) in paragraph at lines 530--547
  [][] 
  []
 
@@ -1154,12 +1150,12 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 7442070BF53826C2D1DB0DD02136020C;1843.
  ) 
 Here is how much of TeX's memory you used:
- 23498 strings out of 402987
- 482666 string characters out of 5454113
+ 23519 strings out of 402987
+ 484041 string characters out of 5454113
  955873 words of memory out of 5000000
- 51825 multiletter control sequences out of 15000+600000
+ 51846 multiletter control sequences out of 15000+600000
  639654 words of font info for 124 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 94i,11n,133p,1228b,905s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,11n,133p,1228b,880s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on D:\constructing_projects\CollegeContest\compile\report.xdv (12 pages, 109072 bytes).
+Output written on D:\constructing_projects\CollegeContest\compile\report.xdv (12 pages, 118868 bytes).
