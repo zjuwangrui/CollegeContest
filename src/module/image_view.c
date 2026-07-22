@@ -109,7 +109,7 @@ void image_view_task(void)
     }
 
     /* -------- 解码 + 显示 (核心一步) --------
-     * 源图 48x36 固定, 1:1 原尺寸显示, 无插值无放大, 视觉最真实.
+     * 源图 48x36 固定, 1:1 原尺寸显示, 无放大, 视觉最真实.
      * 居中于 LCD 上部图像区: (136, 70) ~ (183, 105). */
     lcd_jpeg_info_t info;
     int rc = LCD_DrawJpegEx(IMG_X, IMG_Y, jpg, jpg_len, &info, IMG_SCALE);
@@ -149,9 +149,10 @@ void image_view_task(void)
                   eye_detect_is_closed() ? "CLOSED" : "OPEN");
 
     /* -------- 闭眼检测 (拓展题 2) --------
-     * 喂 H 给状态机, 输出稳定的 OPEN/CLOSED. 只在跨状态时刷 LCD/LED,
-     * 减少 FSMC 无谓写和 LED IO 抖动. */
-    eye_detect_feed(H, now);
+     * 喂 H + len 给状态机, 输出稳定的 OPEN/CLOSED. OR 逻辑:
+     *   H < 阈值  或  len < 阈值  → 闭眼候选. 单指标失效时另一指标兜底.
+     * 只在跨状态时刷 LCD/LED, 减少 FSMC 无谓写和 LED IO 抖动. */
+    eye_detect_feed(H, jpg_len, now);
     bool closed = eye_detect_is_closed();
 
     static bool s_prev_closed = false;

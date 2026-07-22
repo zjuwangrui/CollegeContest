@@ -40,8 +40,13 @@ void eye_detect_init(void);
 
 /* 每收到一帧新的熵值就调一次.
  *   H       : 当前帧绝对熵 (bit, 0..8)
- *   tick_ms : HAL_GetTick(), 用来做时间过滤. */
-void eye_detect_feed(float H, uint32_t tick_ms);
+ *   len     : 当前帧 JPG 文件字节数 (辅助判据)
+ *   tick_ms : HAL_GetTick(), 用来做时间过滤.
+ *
+ * 判决逻辑 (OR):
+ *   闭眼候选   : H < H_ENTER  或  len < LEN_THR   (任一条件成立)
+ *   睁眼恢复   : H >= H_EXIT  且  len >= LEN_THR  (两者都需良好) */
+void eye_detect_feed(float H, uint32_t len, uint32_t tick_ms);
 
 /* 查询当前是否处于确认闭眼状态. */
 bool eye_detect_is_closed(void);
