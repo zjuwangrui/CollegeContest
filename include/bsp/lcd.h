@@ -37,6 +37,12 @@ void LCD_PushRGB565Block(uint16_t x, uint16_t y,
                          uint16_t w, uint16_t h,
                          const uint16_t *pix);
 
+/* 把 w*h 个 8-bit 灰度像素推到 LCD 指定矩形. 内部实时 pack 成 RGB565.
+ * 用于灰度 jpg 解码后直接送屏, 免申请中间 RGB 缓冲. */
+void LCD_PushGray8Block (uint16_t x, uint16_t y,
+                         uint16_t w, uint16_t h,
+                         const uint8_t  *gray);
+
 /* 解码 (jpg_buf, jpg_len) 里的 jpeg, 左上角放在 (x, y) 显示.
  *   返回值:  0        成功
  *            非 0     TJpgDec 的 JDR_* 错误码 (见 tjpgd.h)

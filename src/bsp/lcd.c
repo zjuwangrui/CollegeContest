@@ -98,6 +98,31 @@ static inline uint16_t gray_to_rgb565(uint8_t g)
     return (uint16_t)(((g & 0xF8) << 8) | ((g & 0xFC) << 3) | (g >> 3));
 }
 
+void LCD_PushGray8Block(uint16_t x, uint16_t y,
+                        uint16_t w, uint16_t h,
+                        const uint8_t *gray)
+{
+    if (w == 0 || h == 0) return;
+    if (x >= LCD_X_LENGTH || y >= LCD_Y_LENGTH) return;
+    uint16_t vw = w, vh = h;
+    if (x + vw > LCD_X_LENGTH) vw = LCD_X_LENGTH - x;
+    if (y + vh > LCD_Y_LENGTH) vh = LCD_Y_LENGTH - y;
+
+    if (vw == w && vh == h) {
+        ILI9341_OpenWindow(x, y, w, h);
+        LCD_CMD = CMD_SetPixel;
+        uint32_t n = (uint32_t)w * h;
+        while (n--) LCD_DAT = gray_to_rgb565(*gray++);
+    } else {
+        for (uint16_t row = 0; row < vh; row++) {
+            ILI9341_OpenWindow(x, y + row, vw, 1);
+            LCD_CMD = CMD_SetPixel;
+            const uint8_t *p = gray + (uint32_t)row * w;
+            for (uint16_t c = 0; c < vw; c++) LCD_DAT = gray_to_rgb565(*p++);
+        }
+    }
+}
+
 /* ================================================================== *
  *  JPG 解码显示 (TJpgDec)
  *  策略: 输出回调按 MCU 块 (通常 8x8 或 16x16) 触发,
@@ -105,9 +130,10 @@ static inline uint16_t gray_to_rgb565(uint8_t g)
  *        同时可选累计 8-bit 灰度直方图给上层算熵.
  * ================================================================== */
 
-/* TJpgDec 工作区. 最小 3092 字节 (ChaN 官方); 我们取宽裕值.
- *   放 static 就行, F103VE 有 64KB SRAM, 不吃紧. */
-static uint8_t s_tjd_work[3600];
+/* TJpgDec 工作区.
+ *   JD_FASTDECODE=0 最小 3092B, =1 需 ~3412B; 给到 4608B 留足余量,
+ *   避免个别 JPG 在紧边界下触发零散解码错误 (表现为图像上散布小黑点). */
+static uint8_t s_tjd_work[4608];
 
 typedef struct {
     const uint8_t *buf;
@@ -128,7 +154,7 @@ static size_t tjd_in_cb(JDEC *jd, uint8_t *dst, size_t nread)
     return nread;
 }
 
-/* 输出回调: tjpgd 把一小块解码好的像素喂给我们. JD_FORMAT=1 → RGB565. */
+/* 输出回调: tjpgd 把一小块解码好的像素喂给我们. JD_FORMAT=2 → 8-bit 灰度. */
 static int tjd_out_cb(JDEC *jd, void *bitmap, JRECT *rect)
 {
     jpg_ctx_t *c = (jpg_ctx_t *)jd->device;
@@ -138,21 +164,17 @@ static int tjd_out_cb(JDEC *jd, void *bitmap, JRECT *rect)
     uint16_t sx = c->ox + rect->left;
     uint16_t sy = c->oy + rect->top;
 
-    const uint16_t *px = (const uint16_t *)bitmap;
+    const uint8_t *g = (const uint8_t *)bitmap;
 
-    /* 顺便攒直方图 (可选). 灰度图 R=G=B, 拿 R 通道 5bit 扩到 8bit. */
+    /* 攒直方图: 8-bit 灰度直接进桶, 完整 256 级精度. */
     if (c->info) {
-        const uint16_t *p = px;
         uint32_t n = (uint32_t)bw * bh;
-        while (n--) {
-            uint16_t v = *p++;
-            uint8_t g = (v >> 8) & 0xF8;        /* R5 << 3, 0..248 */
-            g |= g >> 5;                        /* 复制高位补低位 */
-            c->info->hist[g]++;
+        for (uint32_t i = 0; i < n; i++) {
+            c->info->hist[g[i]]++;
         }
     }
 
-    LCD_PushRGB565Block(sx, sy, bw, bh, px);
+    LCD_PushGray8Block(sx, sy, bw, bh, g);
     return 1;   /* 非 0: 继续解码 */
 }
 

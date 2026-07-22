@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.3.11)  22 JUL 2026 09:30
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.3.11)  22 JUL 2026 09:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**d:/constructing_projects/CollegeContest/report.tex
-(d:/constructing_projects/CollegeContest/report.tex
+**d:/constructing_projects/CollegeContest/test.tex
+(d:/constructing_projects/CollegeContest/test.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
 (D:\program\MiKTex\tex/latex/base\article.cls
@@ -553,11 +553,11 @@ Package: multicol 2025/10/21 v2.0b multicolumn formatting (FMi)
 \mc@col@check@num=\count333
 \g__mc_curr_col_int=\count334
 ))
-\report@idxfile=\write4
-\openout4 = `report.idx'.
+\test@idxfile=\write4
+\openout4 = `test.idx'.
 
 
-Writing index file report.idx
+Writing index file test.idx
 (D:\program\MiKTex\tex/latex/abstract\abstract.sty
 Package: abstract 2009/06/08 v1.2a configurable abstracts
 \abstitleskip=\skip62
@@ -899,8 +899,8 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip98
-) (D:\constructing_projects\CollegeContest\compile\report.aux)
-\openout1 = `report.aux'.
+) (D:\constructing_projects\CollegeContest\compile\test.aux)
+\openout1 = `test.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
 LaTeX Font Info:    ... okay on input line 117.
@@ -1025,9 +1025,9 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count398
 Package hyperref Info: Link coloring OFF on input line 117.
- (D:\constructing_projects\CollegeContest\compile\report.out) (D:\constructing_projects\CollegeContest\compile\report.out)
+ (D:\constructing_projects\CollegeContest\compile\test.out) (D:\constructing_projects\CollegeContest\compile\test.out)
 \@outlinefile=\write5
-\openout5 = `report.out'.
+\openout5 = `test.out'.
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 119.
  (D:\program\MiKTex\tex/latex/amsfonts\umsa.fd
@@ -1040,32 +1040,37 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 LaTeX Warning: No \author given.
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--134
+
+ []
+
 [1
 
-] (D:\constructing_projects\CollegeContest\compile\report.toc)
+] (D:\constructing_projects\CollegeContest\compile\test.toc)
 \tf@toc=\write6
-\openout6 = `report.toc'.
+\openout6 = `test.toc'.
 
- [2] [3]
+ [2] [3] [4] [5] [6]
 
 Package caption Warning: Unused \captionsetup[figure] on input line 41.
 See the caption package documentation for explanation.
 
-[4] (D:\constructing_projects\CollegeContest\compile\report.aux)
+[7] (D:\constructing_projects\CollegeContest\compile\test.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
  ***********
-Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 3D4363AFC709727CA09B90E95FB2CB97;455.
+Package rerunfilecheck Info: File `test.out' has not changed.
+(rerunfilecheck)             Checksum: 00DE6ADC8517185F30FC3DE278FFE33A;1599.
  ) 
 Here is how much of TeX's memory you used:
- 23132 strings out of 402987
- 467333 string characters out of 5454113
- 937163 words of memory out of 5000000
- 51487 multiletter control sequences out of 15000+600000
- 638005 words of font info for 105 fonts, out of 8000000 for 9000
+ 23216 strings out of 402987
+ 471845 string characters out of 5454113
+ 941157 words of memory out of 5000000
+ 51565 multiletter control sequences out of 15000+600000
+ 638037 words of font info for 109 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 94i,8n,133p,1228b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,8n,133p,1226b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on D:\constructing_projects\CollegeContest\compile\report.xdv (4 pages, 12896 bytes).
+Output written on D:\constructing_projects\CollegeContest\compile\test.xdv (7 pages, 48220 bytes).

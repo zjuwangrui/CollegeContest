@@ -50,7 +50,7 @@ static void jpg_rx_dma_init(void)
     s_hdma_usart2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
     s_hdma_usart2_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
     s_hdma_usart2_rx.Init.Mode                = DMA_CIRCULAR;
-    s_hdma_usart2_rx.Init.Priority            = DMA_PRIORITY_HIGH;
+    s_hdma_usart2_rx.Init.Priority            = DMA_PRIORITY_VERY_HIGH;
 
     if (HAL_DMA_Init(&s_hdma_usart2_rx) != HAL_OK) while (1);
 
@@ -159,6 +159,27 @@ void jpg_rx_release(void)
 uint32_t jpg_rx_frame_count   (void) { return s_frames;    }
 uint32_t jpg_rx_drop_count    (void) { return s_drops;     }
 uint32_t jpg_rx_overflow_count(void) { return s_overflows; }
+
+/* 读 USART2 错误标志 (读 SR 后再读 DR 会清标志; 只读 SR 保留状态用).
+ * 返回值:
+ *   bit0 = ORE (overrun, DMA 没跟上)
+ *   bit1 = NE  (noise, 采样点有毛刺)
+ *   bit2 = FE  (framing, 停止位错)
+ *   bit3 = PE  (parity, 校验错)
+ * 位一直是 1 就说明这类错误至少出过一次. */
+uint8_t jpg_rx_usart_errors(void)
+{
+    uint32_t sr = huart2.Instance->SR;
+    uint8_t r = 0;
+    if (sr & USART_SR_ORE) r |= 0x01;
+    if (sr & USART_SR_NE ) r |= 0x02;
+    if (sr & USART_SR_FE ) r |= 0x04;
+    if (sr & USART_SR_PE ) r |= 0x08;
+    /* 清: 读 SR 后读 DR 就能清 ORE/NE/FE/PE.
+     * 但 DR 被 DMA 占用了, 读 DR 相当于抢一个字节 → 会掉数据.
+     * 所以这里只读, 不清; 让状态一直保留供观察. */
+    return r;
+}
 
 uint16_t jpg_rx_dma_head(void)
 {

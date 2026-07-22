@@ -81,4 +81,9 @@ uint16_t jpg_rx_dma_head(void);
  * 用来 hex dump 最近收到的字节, 看是不是真 JPG 数据. */
 uint8_t  jpg_rx_ring_peek(uint16_t offset_from_head);
 
+/* 读 USART2 错误标志 (ORE/NE/FE/PE).
+ * 返回位掩码: bit0=ORE, bit1=NE, bit2=FE, bit3=PE.
+ * 长期为 0 说明字节层完全 OK; 非 0 说明至少出过一次相应错误. */
+uint8_t  jpg_rx_usart_errors(void);
+
 #endif /* __DRV_JPG_RX_H */

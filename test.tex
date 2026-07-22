@@ -1,0 +1,370 @@
+%设置页面边距（word标准页面）
+\documentclass[a4paper]{article}
+\usepackage{geometry}
+\geometry{a4paper,left=2.7cm,right=2.7cm,top=2.54cm,bottom=2.54cm}
+ 
+%导入ctex包
+\usepackage[UTF8,heading=true]{ctex}
+
+% \usepackage{graphicx}
+% \usepackage{caption}
+% \usepackage{subcaption}
+
+
+%需使用包
+\usepackage{svg} 
+
+%导入imakeidx包
+\usepackage{imakeidx}
+\makeindex % 初始化索引处理
+ 
+%设置摘要格式
+\usepackage{abstract}
+\setlength{\abstitleskip}{0em}
+\setlength{\absleftindent}{0pt}
+\setlength{\absrightindent}{0pt}
+\setlength{\absparsep}{0em}
+\renewcommand{\abstractname}{\textbf{\zihao{4}{摘要部分}}}
+\renewcommand{\abstracttextfont}{\zihao{-4}} %设置摘要正文字号
+ 
+%设置页眉和页脚，只显示页脚居中页码
+\usepackage{fancyhdr}
+\pagestyle{plain}
+ 
+%调用数学公式包
+\usepackage{amssymb}
+\usepackage{amsmath}
+ 
+%调用浮动包
+\usepackage{float}
+\usepackage{subfig}
+\captionsetup[figure]{labelsep=space} %去除图标题的冒号
+\captionsetup[table]{labelsep=space} %去除表格标题的冒号
+%设置标题格式
+\ctexset {
+	%设置一级标题的格式
+	section = {
+		name={,、},
+		number=\chinese{section}, %设置中文版的标题
+		aftername=,
+	},
+	%设置三级标题的格式
+	subsubsection = {
+		format += \zihao{-4} % 设置三级标题的字号
+	}
+}
+ 
+ 
+%使得英文字体都为Time NewTown
+%\usepackage{times}
+ 
+%图片包导入
+% \usepackage{graphicx}
+% \graphicspath{{figures}} %图片在当前目录下的figures目录
+
+ 
+%参考文献包引入
+\usepackage{cite}
+\usepackage[numbers,sort&compress]{natbib}
+
+ 
+%代码格式
+\usepackage{listings}
+\usepackage{graphicx}%写入python代码
+\usepackage{pythonhighlight}%python代码高亮显示
+\lstset{
+	%numbers=left, %设置行号位置
+	%	numberstyle=\tiny, %设置行号大小
+	keywordstyle=\color{blue}, %设置关键字颜色
+	commentstyle=\color[cmyk]{1,0,1,0}, %设置注释颜色
+	escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
+	breaklines, %自动折行
+	extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+	xleftmargin=1em,xrightmargin=1em, aboveskip=1em, %设置边距
+	tabsize=4, %设置tab空格数
+	showspaces=false %不显示空格
+}
+ 
+ 
+\renewcommand{\refname}{}
+ 
+%item包
+\usepackage{enumitem}
+ 
+%表格加粗
+\usepackage{booktabs}
+ 
+%设置表格间距
+\usepackage{caption}
+ 
+%允许表格长跨页
+\usepackage{longtable}
+ 
+%伪代码用到的宏包
+\usepackage{algorithmic}
+\usepackage{algorithm}
+ 
+%添加hyperref宏包
+\usepackage{hyperref}
+
+
+
+%正文区
+\title{\Huge\bfseries 2026年信电学院电子设计竞赛}
+\date{\LARGE\bfseries 大二六组串口图像检测系统测试报告} %不显示日期
+
+%文档
+\begin{document}
+	\maketitle
+	\vspace{10em} %设置摘要与标题的间距
+	\zihao{-4} %设置正文字号
+	%摘要部分
+	% \newpage
+	\begin{abstract}
+		本文设计了一种基于串口图像传输的检测系统。系统由PC端JPG图像发送模块、
+STM32图像接收显示模块以及基于LM324运算放大器和LM339比较器的纯模拟检测模块组成。
+PC端将摄像头采集图像进行灰度化和JPEG压缩后，通过USB-TTL串口发送，
+STM32完成图像接收、解码、显示以及图像熵计算。
+模拟检测部分通过检测串口TXD信号的数据帧长度变化，实现JPEG文件大小分级，
+并利用LED完成四档显示。
+\\
+		%关键词（上文最后一段要用“\\”换行）
+		\newline
+		\noindent{\textbf{关键词：} \textbf{串口通信}\quad   \textbf{JPEG压缩}\quad \textbf{LM324}\quad \textbf{LM339}\quad \textbf{图像检测}} 
+	\end{abstract}
+	
+	\vspace{1cm}
+	\vspace{1cm}
+	\vspace{1cm}
+	\vspace{1cm}
+	\begin{table}[ht]
+		\centering  
+	\label{table:example}  % 为表格提供标签，以便于引用
+\end{table}
+	\newpage
+	\tableofcontents % 插入目录
+
+
+	\newpage
+\section{系统方案}
+
+\subsection{系统总体设计}
+
+本系统主要由三个部分组成：
+PC端图像采集发送模块、STM32图像处理显示模块以及纯模拟检测模块。
+
+PC端通过摄像头获取图像，并进行灰度化和JPEG压缩处理，
+随后通过USB-TTL串口发送JPEG数据。
+STM32接收串口数据，完成JPEG解码、图像显示以及熵值计算。
+
+模拟检测模块独立于单片机工作，通过检测串口TXD发送线，
+利用JPEG文件大小与图像信息熵之间的关系，实现数据帧长度分级检测。
+系统整体结构框图如下：
+
+% 插入系统框图
+%\includegraphics[width=0.9\textwidth]{figure/system.png}
+
+
+\subsection{纯模拟检测方案}
+
+纯模拟检测部分采用LM324和LM339芯片实现。
+
+由于JPEG压缩后的文件大小能够反映图像复杂程度，
+本系统通过检测TXD信号持续时间以及高低电平变化，
+转换为对应模拟电压，再利用LM339比较器完成多级阈值判断。
+
+四级LED显示对应关系如下：
+
+\begin{table}[H]
+\centering
+\caption{文件帧长度与LED显示对应关系}
+\begin{tabular}{ccc}
+\toprule
+等级 & 文件帧长度范围 & LED显示\\
+\midrule
+1 &300--520&亮灭灭灭\\
+2 &520--780&亮亮灭灭\\
+3 &780--1000&亮亮亮灭\\
+4 &>1000&亮亮亮亮\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{单片机方案}
+
+STM32作为图像处理核心，通过串口接收JPEG数据，
+利用JPEG解码库恢复图像，并通过显示屏显示。
+
+同时统计图像灰度直方图，根据：
+
+\[
+H=-\sum_{i=0}^{255}p(i)\log_2p(i)
+\]
+
+计算图像绝对熵，并进一步得到相对熵。
+
+
+\newpage
+\section{系统理论分析与计算}
+
+
+\subsection{模拟检测原理分析}
+
+JPEG文件大小与图像纹理复杂程度相关。
+纹理越复杂，图像信息熵越高，JPEG压缩后的文件长度越大。
+
+串口发送过程中，TXD低电平持续时间与发送数据量相关，
+因此通过积分电路可以将串口波形转换为电压信号。
+
+经过LM324信号调理后，
+送入LM339比较器进行窗口比较，实现四档输出。
+
+
+\subsection{阈值计算}
+
+根据题目要求：
+
+\[
+300<B_1\le520
+\]
+
+\[
+520<B_2\le780
+\]
+
+\[
+780<B_3\le1000
+\]
+
+\[
+1000<B_4
+\]
+
+因此设计比较器参考电压分别对应上述四个文件长度区间。
+
+
+\newpage
+\section{电路与程序设计}
+
+
+\subsection{模拟检测电路}
+
+模拟检测电路主要包括：
+
+\begin{enumerate}
+\item TXD信号采样模块；
+\item RC积分转换模块；
+\item LM324放大调理模块；
+\item LM339比较输出模块；
+\item LED显示模块。
+\end{enumerate}
+
+
+\subsection{STM32程序设计}
+
+程序主要流程如下：
+
+\begin{enumerate}
+\item 初始化串口；
+\item 接收JPEG数据；
+\item 数据缓存；
+\item JPEG解码；
+\item LCD显示；
+\item 熵值计算；
+\item 闭眼检测算法判断。
+\end{enumerate}
+
+
+\subsection{芯片使用统计}
+
+\begin{table}[H]
+\centering
+\caption{芯片数量统计}
+\begin{tabular}{ccc}
+\toprule
+芯片型号&数量&用途\\
+\midrule
+LM324& &积分、放大\\
+LM339& &比较检测\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\newpage
+\section{测试方案与测试结果}
+
+
+\subsection{模拟检测测试}
+
+测试不同JPEG文件大小情况下LED显示情况。
+
+
+\begin{table}[H]
+\centering
+\caption{文件帧长度检测结果}
+\begin{tabular}{cccc}
+\toprule
+测试图片&文件大小(Byte)&理论等级&实际LED显示\\
+\midrule
+1&&&\\
+2&&&\\
+3&&&\\
+4&&&\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\subsection{STM32图像显示测试}
+
+
+\begin{table}[H]
+\centering
+\caption{图像显示测试结果}
+\begin{tabular}{ccc}
+\toprule
+测试项目&指标&结果\\
+\midrule
+图像显示&是否正常&\\
+帧率&fps&\\
+熵值计算&是否准确&\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\subsection{闭眼检测测试}
+
+
+\begin{table}[H]
+\centering
+\caption{闭眼检测结果}
+\begin{tabular}{cccc}
+\toprule
+状态&文件大小变化&LED显示&检测结果\\
+\midrule
+睁眼&&&\\
+闭眼&&&\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\newpage
+\section*{附录}
+
+附录1：模拟检测电路原理图
+
+附录2：PCB及实物照片
+
+附录3：系统整体框图
+
+		
+
+	
+\end{document}

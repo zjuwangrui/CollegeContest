@@ -90,10 +90,11 @@ void image_view_task(void)
     if (tick - s_diag_last >= 200) {              /* 5Hz 刷新, 别刷太快 */
         s_diag_last = tick;
         uint16_t head = jpg_rx_dma_head();
+        uint8_t  uerr = jpg_rx_usart_errors();
         LCD_DrawTextf(4, 80, GREY, BLACK,
-            "head=%u  frm=%lu drop=%lu ovf=%lu    ",
+            "head=%u frm=%lu drop=%lu ovf=%lu uerr=%02X   ",
             head, jpg_rx_frame_count(),
-            jpg_rx_drop_count(), jpg_rx_overflow_count());
+            jpg_rx_drop_count(), jpg_rx_overflow_count(), uerr);
         LCD_DrawTextf(4, 100, GREY, BLACK,
             "last8: %02X %02X %02X %02X %02X %02X %02X %02X   ",
             jpg_rx_ring_peek(7), jpg_rx_ring_peek(6),
@@ -127,7 +128,15 @@ void image_view_task(void)
     /* -------- 熵值 -------- */
     uint32_t npix = (uint32_t)info.width * (uint32_t)info.height;
     float    H    = entropy_from_hist(info.hist, npix);
-    float    Hr   = H * 100.0f / 8.0f;
+    float    Hr   = H / 8.0f;                    /* 与 PC 端一致: 0~1 的比例 */
+
+    /* 直方图总和 vs 像素总数: 用来验证 tjpgd 输出被完整消费.
+     * 若 hist_sum != npix, 说明输出回调漏了/多了像素. 稳定后删除. */
+    uint32_t hist_sum = 0;
+    for (int i = 0; i < 256; i++) hist_sum += info.hist[i];
+    LCD_DrawTextf(4, 60, GREY, BLACK,
+                  "npix=%lu hsum=%lu %s   ",
+                  npix, hist_sum, (hist_sum == npix) ? "OK" : "MISMATCH");
 
     /* -------- 帧速 (每 1s 更新一次) -------- */
     s_fps_frames++;
@@ -148,7 +157,7 @@ void image_view_task(void)
                   "size %ux%u  len %luB   ",
                   info.width, info.height, jpg_len);
     LCD_DrawTextf(4, INFO_L1_Y, YELLOW, BLACK,
-                  "H=%.3f  Hr=%.1f%%   ",
+                  "H=%.3f  Hr=%.3f   ",
                   (double)H, (double)Hr);
     LCD_DrawTextf(4, INFO_L2_Y, GREEN,  BLACK,
                   "fps %.1f  frm %lu    ",
