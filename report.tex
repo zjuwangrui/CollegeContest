@@ -201,25 +201,31 @@ STM32接收串口数据，完成JPEG解码、图像显示以及熵值计算。
 
 \subsection{纯模拟检测方案}
 
-纯模拟检测部分采用LM324和LM339芯片实现。
+\subsubsection{模块A：TXD缓冲与波形整形}
+模块A由Q4、Q1两级共射极开关电路组成。第一级隔离原始TXD并完成一次反相，第二级再次反相，最终UART\_CLEAN与原始TXD同相。两级集电极均采用$10\unit{k\Omega}$上拉，基极串联$47\unit{k\Omega}$限流并配置$220\unit{k\Omega}$下拉。该结构既降低了对串口源端的负载，又把可能带有缓慢边沿或毛刺的输入恢复为接近0/5 V的逻辑波形。
 
-由于JPEG压缩后的文件大小能够反映图像复杂程度，
-本系统通过检测TXD信号持续时间以及高低电平变化，
-转换为对应模拟电压，再利用LM339比较器完成多级阈值判断。
+\subsubsection{模块B：帧活动检测与BUSY生成}
+UART\_CLEAN空闲时为高电平，每个字节至少包含一个低电平起始位。D1使低电平位快速拉低C6端电压，而R6只允许C6以较慢速度回充。由于字节间隔远小于$R_6C_6$，一帧传输过程中C6电压始终保持在比较阈值以下，LM324输出持续高电平；帧结束后TXD长期保持高电平，C6恢复到2.5 V，BUSY随之变低。这样，复杂的UART位流被转换为一个宽度近似等于整帧发送时间的矩形脉冲。
 
-四级LED显示对应关系如下：
+\subsubsection{模块C：帧长积分与电压保持}
+BUSY上升沿经C7、R15耦合到Q2基极，使Q2短暂导通并快速放掉C8上的残余电荷，实现“每帧开始自动清零”。随后BUSY高电平经D2和R14对C8充电，充电时间越长，C8电压越高。U1.3接成电压跟随器，对积分电容进行缓冲并输出$\VMEAS$，避免后级比较器和测量仪表改变积分时间常数。
+
+\subsubsection{模块D：四阈值比较与LED显示}
+模块D使用LM339的四个比较器通道。四个$10\unit{k\Omega}$电位器由2.5 V基准供电，分别产生四个递增参考电压。$\VMEAS$同时送入四路比较器，当$\VMEAS$依次超过各档阈值时，相应LM339开集电极输出导通，经$2.2\unit{k\Omega}$限流电阻吸收LED电流，使LED1至LED4依次点亮，形成类似电量条的累积显示。
 
 \begin{table}[H]
 \centering
-\caption{文件帧长度与LED显示对应关系}
+\caption{文件帧长度与LED显示逻辑}
+\label{tab:level_logic}
 \begin{tabular}{ccc}
 \toprule
-等级 & 文件帧长度范围 & LED显示\\
+文件长度范围（Byte） & 档位 & LED1--LED4 \\
 \midrule
-1 &300--520&亮灭灭灭\\
-2 &520--780&亮亮灭灭\\
-3 &780--1000&亮亮亮灭\\
-4 &>1000&亮亮亮亮\\
+$N\le 300$ & 初始/低于第一档 & \ledstate{0000}（全灭）\\
+$300<N\le 520$ & 第1档 & \ledstate{1000}\\
+$520<N\le 780$ & 第2档 & \ledstate{1100}\\
+$780<N\le 1000$ & 第3档 & \ledstate{1110}\\
+$N>1000$ & 第4档 & \ledstate{1111}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -251,40 +257,94 @@ ILI9341 液晶屏（320$\times$240）。
 \newpage
 \section{系统理论分析与计算}
 
+\subsection{UART帧长与发送时间}
+115200、8N1串口中，每个字节包含1位起始位、8位数据位和1位停止位，因此发送$N$ Byte所需时间为
+\begin{equation}
+T_{\mathrm{frame}}=86.806N\unit{\mu s}.
+\end{equation}
+题目四个边界对应的纯传输时间见表\ref{tab:time_threshold}。
 
-\subsection{模拟检测原理分析}
+\begin{table}[H]
+\centering
+\caption{文件长度边界对应的串口发送时间}
+\label{tab:time_threshold}
+\begin{tabular}{ccc}
+\toprule
+边界文件长度（Byte） & 串行位数（bit） & $T_{\mathrm{frame}}$（ms）\\
+\midrule
+300  & 3000  & 26.04\\
+520  & 5200  & 45.14\\
+780  & 7800  & 67.71\\
+1000 & 10000 & 86.81\\
+\bottomrule
+\end{tabular}
+\end{table}
 
-JPEG文件大小与图像纹理复杂程度相关。
-纹理越复杂，图像信息熵越高，JPEG压缩后的文件长度越大。
+\subsection{模块A输入负载与整形能力}
+TXD为高电平时，一级晶体管基极电流近似为
+\begin{equation}
+I_{B1}\approx\frac{5-0.7}{47\unit{k\Omega}}-\frac{0.7}{220\unit{k\Omega}}\approx88\unit{\mu A}.
+\end{equation}
+而集电极上拉电流约为$5/10\unit{k\Omega}=0.5\unit{mA}$，具有足够的饱和驱动裕量。对USB--TTL输出端而言，额外负载电流低于$0.1\unit{mA}$，远小于普通TTL/CMOS驱动能力。两级反相后逻辑极性恢复，且晶体管饱和开关可抑制输入边沿缓慢、线缆耦合等造成的中间电平。
 
-串口发送过程中，TXD低电平持续时间与发送数据量相关，
-因此通过积分电路可以将串口波形转换为电压信号。
+\subsection{模块B包络参数与BUSY释放时间}
+R6与C6的时间常数为
+\begin{equation}
+\tau_B=R_6C_6=47\unit{k\Omega}\times10\unit{nF}=0.47\unit{ms}.
+\end{equation}
+非反相端由2.5 V经R7、R8分压，比较阈值为
+\begin{equation}
+V_{TB}=2.5\times\frac{15}{10+15}=1.50\unit{V}.
+\end{equation}
+即使某一字节数据全为1，相邻两个起始位间隔也仅为$86.8\unit{\mu s}$，明显小于$0.47\unit{ms}$，所以传输过程中包络不会恢复到1.5 V以上。若每次低电平把C6拉至约0.65 V，则帧结束后的BUSY释放时间近似为
+\begin{equation}
+ t_{\mathrm{rel}}=\tau_B\ln\frac{2.5-0.65}{2.5-1.50}\approx0.29\unit{ms}.
+\end{equation}
+该延时相当于约3.3 Byte的固定偏移，可在四路电位器校准时一并补偿，不影响档位的单调性。
 
-经过LM324信号调理后，
-送入LM339比较器进行窗口比较，实现四档输出。
+\subsection{模块C积分模型}
+C8的充电时间常数为
+\begin{equation}
+\tau_C=R_{14}C_8=100\unit{k\Omega}\times1\unit{\mu F}=0.10\unit{s}.
+\end{equation}
+每帧开始时Q2把C8复位到接近0 V。设BUSY经LM324输出和D2后的有效充电上限为$V_S$，则帧结束时
+\begin{equation}
+\VMEAS(N)=V_S\left[1-\exp\left(-\frac{10N}{115200R_{14}C_8}\right)\right].
+\label{eq:vmeas}
+\end{equation}
+在本设计计算中取$V_S=3.2\unit{V}$作为电位器初调依据。由于指数函数在本题范围内严格单调，文件越大，$\VMEAS$越高。实际样机中$V_S$会受LM324高电平摆幅、D2压降和器件误差影响，因此最终以边界文件进行微调。
 
+\subsection{四档阈值计算与校准}
+将$N=300,520,780,1000$代入式\eqref{eq:vmeas}，得到四路参考电压初值。电位器均由2.5 V基准供电，其旋钮比例为$V_{TH}/2.5$。
 
-\subsection{阈值计算}
+\begin{table}[H]
+\centering
+\caption{四档比较阈值的理论初值}
+\label{tab:vthreshold}
+\begin{tabular}{ccccc}
+\toprule
+LED通道 & 对应边界（Byte） & 发送时间（ms） & $V_{TH}$初值（V） & 2.5 V量程比例 \\
+\midrule
+LED1 & 300  & 26.04 & 0.73 & 29.3\%\\
+LED2 & 520  & 45.14 & 1.16 & 46.5\%\\
+LED3 & 780  & 67.71 & 1.57 & 63.0\%\\
+LED4 & 1000 & 86.81 & 1.86 & 74.3\%\\
+\bottomrule
+\end{tabular}
+\end{table}
 
-根据题目要求：
+校准时先断开信号输入，用万用表测量四个电位器滑动端并调到表\ref{tab:vthreshold}所列初值；再依次加载接近300、520、780、1000 Byte的边界图片，微调对应电位器，使LED在边界两侧稳定翻转。各边界只做小幅补偿，控制在题目允许的$\pm4\%$范围内。四个阈值必须保持
+\begin{equation}
+V_{TH1}<V_{TH2}<V_{TH3}<V_{TH4},
+\end{equation}
+从而保证LED呈累积式点亮而不会出现跳档或倒序。
 
-\[
-300<B_1\le520
-\]
-
-\[
-520<B_2\le780
-\]
-
-\[
-780<B_3\le1000
-\]
-
-\[
-1000<B_4
-\]
-
-因此设计比较器参考电压分别对应上述四个文件长度区间。
+\subsection{LED输出电流}
+LM339输出为开集电极结构，LED与$2.2\unit{k\Omega}$电阻串联后接至5 V。当比较器导通时，若LED正向压降约为2.0 V、LM339饱和压降约为0.2 V，则
+\begin{equation}
+I_{LED}\approx\frac{5-2.0-0.2}{2.2\unit{k\Omega}}\approx1.27\unit{mA}.
+\end{equation}
+该电流足以观察，同时显著低于LM339单路灌电流能力，四灯同时点亮时也不会对电源造成明显负担。
 
 
 \subsection{图像熵值计算原理}
@@ -400,30 +460,94 @@ $T_{\mathrm{OPEN}}$  & 恢复睁眼确认时长             & 300 ms \\
 \section{电路与程序设计}
 
 
-\subsection{模拟检测电路}
+\subsection{模拟检测电路总述}
+纯模拟系统的接口顺序为
+\begin{center}
+\texttt{TXD} $\rightarrow$ \texttt{UART\_CLEAN} $\rightarrow$ \texttt{BUSY} $\rightarrow$ \texttt{VMEAS} $\rightarrow$ \texttt{LED1--LED4}。
+\end{center}
+各模块采用插接端子连接，便于逐级调试。调试时可依次观察UART\_CLEAN波形、BUSY脉冲宽度和$\VMEAS$，快速定位故障所在级。
+
+\subsection{模块A电路：缓冲与整形}
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{resources/figure/circuit.png}
-    \caption{电路原理图}
-    \label{fig:circuit}
+\centering
+\includegraphics[width=0.98\textwidth]{module_A.png}
+\caption{模块A原理图：两级NPN缓冲与同相整形}
+\label{fig:moduleA}
 \end{figure}
-本纯模拟检测电路采用模块化设计，主要由电源与基准电压、串口信号整形、串口忙闲检测、帧长度电压转换以及四档比较显示等部分组成。电路仅采样USB-TTL模块的TXD信号，不依赖单片机，能够独立完成JPEG数据帧大小的分档检测。
 
-电源与基准电压部分：
-系统采用5 V供电，并在电源入口设置滤波和去耦电容，以减小串口高速跳变及LED开关对模拟检测电路的干扰。通过电阻分压产生约2.5 V基准电压，并使用LM324进行缓冲，为后续比较、积分和阈值调节提供稳定参考。
+Q4和Q1均采用2N3904。R1、R20为$47\unit{k\Omega}$基极限流电阻，R2、R19为$220\unit{k\Omega}$基极下拉，R18、R21为$10\unit{k\Omega}$集电极上拉。第一级把TXD高电平变为低电平，第二级恢复极性并输出UART\_CLEAN。两级之间的电阻隔离可避免前级饱和电荷直接影响后级输入。
 
-模块A——串口信号采样与整形：
-TXD信号通过较大阻值电阻接入2N3904三极管基极，实现高阻采样，避免对正常串口通信造成明显影响。三极管采用共射极接法，对TXD信号进行反相和电平整形，输出UART\_CLEAN信号。当TXD出现低电平起始位或数据位时，整形输出产生相应的高电平脉冲，为后级活动检测提供稳定输入。
+\subsection{模块B电路：BUSY提取}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.87\textwidth]{module_B.png}
+\caption{模块B原理图：低电平包络与帧活动比较}
+\label{fig:moduleB}
+\end{figure}
 
-模块B——串口活动检测与BUSY生成：
-整形后的UART脉冲经二极管和RC网络形成包络信号ENV。串口持续发送数据时，脉冲不断刷新电容电压，使ENV保持在有效区间；当数据发送结束、TXD长时间保持空闲高电平时，ENV按设定时间常数变化。LM324将ENV与参考电压比较，并通过迟滞反馈抑制临界点抖动，最终得到连续的BUSY信号。BUSY高电平持续时间近似反映一幅JPEG图像的串口发送时间。
+D1选用1N4148以获得较快的放电速度；R6与C6决定帧内保持能力；R7、R8由2.5 V基准生成1.5 V比较阈值。U1.1使用LM324的第1个通道作开环比较，输出BUSY。R9为$1\unit{M\Omega}$弱下拉，使后级断开或上电瞬间输出状态更明确。
 
-模块C——帧长度积分、保持与复位：
-BUSY信号控制测量电容C8的充电过程，将一帧数据的发送持续时间转换为模拟电压VMEAS。发送时间越长，VMEAS越高，因此其大小与JPEG文件长度近似单调对应。二极管用于隔离充电与保持通路，S8050三极管及其边沿触发网络在下一帧开始时快速释放测量电容，使每一帧均从相同初始状态重新测量。LM324以电压跟随器方式缓冲VMEAS，防止后级比较电路影响保持电容电压。
+\subsection{模块C电路：复位积分与缓冲}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{module_C.png}
+\caption{模块C原理图：上升沿复位、RC积分和电压跟随}
+\label{fig:moduleC}
+\end{figure}
 
-模块D——四阈值比较与LED分档显示：
-缓冲后的VMEAS同时送入LM339的四路比较器。四个10 kΩ可调电位器分别设定300 B、520 B、780 B和1000 B附近的比较阈值。当VMEAS超过某一级阈值时，相应比较器输出导通并点亮LED。四只LED采用累进式显示：第一档亮1只，第二档亮2只，第三档亮3只，第四档全部点亮，从而直观表示当前JPEG文件帧的大小等级。各阈值可根据实际测试文件和器件误差进行现场校准。
+C7、R15和R16构成上升沿触发网络，Q2采用S8050，R17的$10\unit{\Omega}$电阻限制C8快速放电时的峰值电流。D3钳位BUSY下降沿产生的负向基极脉冲，保护Q2的基极--发射极结。D2只允许BUSY高电平向C8充电，避免BUSY变低后通过前级反向放电。C8采用$1\unit{\mu F}$陶瓷电容以减小漏电和容量漂移，U1.3接成单位增益电压跟随器输出$\VMEAS$。
 
+\subsection{模块D电路：四档比较与显示}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{module_D.png}
+\caption{模块D原理图：LM339四阈值累积式LED显示}
+\label{fig:moduleD}
+\end{figure}
+
+四个电位器Rn1--Rn4均为$10\unit{k\Omega}$，上端接2.5 V基准、下端接地，滑动端分别接LM339四路同相输入；$\VMEAS$接四路反相输入。当$\VMEAS$高于某路参考电压时，该路LM339输出晶体管导通并点亮对应LED。由于四个参考电压递增，文件越大，点亮的LED数量越多。
+
+\subsection{电源与2.5 V基准}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{power.png}
+\caption{模拟系统电源去耦与2.5 V基准电路}
+\label{fig:power}
+\end{figure}
+
+系统采用5 V单电源。C1（100 nF）吸收高频噪声，C2（10 $\mu$F）提供低频储能。R10、R11各为$10\unit{k\Omega}$，产生2.5 V中点；C5进一步滤波，LM324电压跟随器降低基准源阻抗，再通过多个端子分配给模块B和模块D。剩余跟随器通道用于隔离不同参考支路，减少电位器调节和包络电路对基准点的相互影响。
+
+\subsection{关键器件与参数汇总}
+{\small\setlength{\tabcolsep}{4pt}
+\begin{longtable}{p{1.4cm}p{2.9cm}p{3.4cm}p{7.0cm}}
+\caption{纯模拟检测系统关键器件与作用}\label{tab:components}\\
+\toprule
+模块 & 器件 & 参数/型号 & 作用 \\
+\midrule
+\endfirsthead
+\toprule
+模块 & 器件 & 参数/型号 & 作用 \\
+\midrule
+\endhead
+A & Q4、Q1 & 2N3904 & 两级反相缓冲，最终保持TXD逻辑同相 \\
+A & R1、R20 & $47\unit{k\Omega}$ & 限制基极电流并提高输入阻抗 \\
+A & R2、R19 & $220\unit{k\Omega}$ & 基极下拉，保证输入悬空时关断 \\
+A & R18、R21 & $10\unit{k\Omega}$ & 集电极上拉，形成0/5 V开关波形 \\
+B & D1 & 1N4148 & 低电平快速放电，提取UART位流包络 \\
+B & R6、C6 & $47\unit{k\Omega}$、10 nF & 构成$0.47\unit{ms}$保持网络 \\
+B & R7、R8 & $10\unit{k\Omega}$、$15\unit{k\Omega}$ & 由2.5 V产生1.5 V比较阈值 \\
+C & C7、R15、R16 & 10 nF、$2.2\unit{k\Omega}$、$22\unit{k\Omega}$ & 产生帧开始复位脉冲 \\
+C & Q2、R17 & S8050、$10\unit{\Omega}$ & 快速放电积分电容 \\
+C & D2、R14、C8 & 1N4148、$100\unit{k\Omega}$、1 $\mu$F & BUSY脉冲积分，时间常数100 ms \\
+C & U1.3 & LM324 & 缓冲$\VMEAS$ \\
+D & U3.1--U3.4 & LM339 & 四路阈值比较 \\
+D & Rn1--Rn4 & $10\unit{k\Omega}$电位器 & 设置四档参考电压 \\
+D & RLED1--4 & $2.2\unit{k\Omega}$ & LED限流 \\
+电源 & R10、R11、C5 & $10\unit{k\Omega}$、$10\unit{k\Omega}$、100 nF & 生成并滤波2.5 V中点 \\
+电源 & C1、C2 & 100 nF、10 $\mu$F & 5 V电源去耦 \\
+\bottomrule
+\end{longtable}
+}
 
 \subsection{STM32程序设计}
 
@@ -511,24 +635,20 @@ LM339& 1&比较检测\\
 
 \subsection{模拟检测测试}
 
-测试不同JPEG文件大小情况下LED显示情况。
-
-
 \begin{table}[H]
 \centering
-\caption{文件帧长度检测结果}
-\begin{tabular}{cccc}
+\caption{纯模拟信号链检查结果}
+\small
+\begin{tabularx}{\textwidth}{p{2.8cm}p{3.4cm}X p{1.4cm}}
 \toprule
-测试图片&文件大小(Byte)&理论等级&实际LED显示\\
+检查点 & 预期现象 & 调试观察 & 结论 \\
 \midrule
-1&&&\\
-2&&&\\
-3&&&\\
-4&&&\\
+UART\_CLEAN & 与TXD同相，逻辑幅度完整 & 空闲为高电平，发送矩形波时出现清晰信号波形 & 正常 \\
+BUSY & 一帧期间持续为高，帧间回到低 & 帧内无明显断裂，帧结束后迅速恢复低电平 & 正常 \\
+$\VMEAS$ & 每帧开始清零，随帧长增加 & 小文件电压低，大文件电压高，切换文件后下一帧即可更新 & 正常 \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
-
 
 
 \subsection{STM32图像显示测试}
