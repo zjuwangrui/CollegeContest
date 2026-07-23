@@ -316,6 +316,9 @@ INPUT D:\program\MiKTex\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT D:\program\MiKTex\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 INPUT D:\program\MiKTex\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
 INPUT D:\program\MiKTex\fonts\tfm\public\cm\cmr10.tfm
+INPUT .\resources\figure\circuit.png
+INPUT .\resources\figure\circuit.png
+INPUT .\resources\figure\circuit.png
 INPUT D:\program\MiKTex\fonts\tfm\public\cm\cmmi9.tfm
 INPUT D:\program\MiKTex\fonts\tfm\public\cm\cmsy9.tfm
 INPUT D:\program\MiKTex\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm

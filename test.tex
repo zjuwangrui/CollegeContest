@@ -1,234 +1,187 @@
 %设置页面边距（word标准页面）
 \documentclass[a4paper]{article}
 \usepackage{geometry}
-\geometry{a4paper,left=2.7cm,right=2.7cm,top=2.54cm,bottom=2.54cm}
- 
+\geometry{a4paper,left=2cm,right=2cm,top=1.6cm,bottom=1.6cm}
+
 %导入ctex包
 \usepackage[UTF8,heading=true]{ctex}
 
-% \usepackage{graphicx}
-% \usepackage{caption}
-% \usepackage{subcaption}
 \usepackage{multirow}
-
-%需使用包
-\usepackage{svg} 
-
-%导入imakeidx包
-\usepackage{imakeidx}
-\makeindex % 初始化索引处理
- 
-%设置摘要格式
-\usepackage{abstract}
-\setlength{\abstitleskip}{0em}
-\setlength{\absleftindent}{0pt}
-\setlength{\absrightindent}{0pt}
-\setlength{\absparsep}{0em}
-\renewcommand{\abstractname}{\textbf{\zihao{4}{摘要部分}}}
-\renewcommand{\abstracttextfont}{\zihao{-4}} %设置摘要正文字号
- 
-%设置页眉和页脚，只显示页脚居中页码
-\usepackage{fancyhdr}
-\pagestyle{plain}
- 
-%调用数学公式包
 \usepackage{amssymb}
 \usepackage{amsmath}
- 
-%调用浮动包
 \usepackage{float}
-\usepackage{subfig}
-\captionsetup[figure]{labelsep=space} %去除图标题的冒号
-\captionsetup[table]{labelsep=space} %去除表格标题的冒号
-%设置标题格式
-\ctexset {
-	%设置一级标题的格式
-	section = {
-		name={,、},
-		number=\chinese{section}, %设置中文版的标题
-		aftername=,
-	},
-	%设置三级标题的格式
-	subsubsection = {
-		format += \zihao{-4} % 设置三级标题的字号
-	}
-}
- 
- 
-%使得英文字体都为Time NewTown
-%\usepackage{times}
- 
-%图片包导入
-% \usepackage{graphicx}
-% \graphicspath{{figures}} %图片在当前目录下的figures目录
-
- 
-%参考文献包引入
-\usepackage{cite}
-\usepackage[numbers,sort&compress]{natbib}
-
- 
-%代码格式
-\usepackage{listings}
-\usepackage{graphicx}%写入python代码
-\usepackage{pythonhighlight}%python代码高亮显示
-\lstset{
-	%numbers=left, %设置行号位置
-	%	numberstyle=\tiny, %设置行号大小
-	keywordstyle=\color{blue}, %设置关键字颜色
-	commentstyle=\color[cmyk]{1,0,1,0}, %设置注释颜色
-	escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
-	breaklines, %自动折行
-	extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
-	xleftmargin=1em,xrightmargin=1em, aboveskip=1em, %设置边距
-	tabsize=4, %设置tab空格数
-	showspaces=false %不显示空格
-}
- 
- 
-\renewcommand{\refname}{}
- 
-%item包
-\usepackage{enumitem}
- 
-%表格加粗
-\usepackage{booktabs}
- 
-%设置表格间距
+\usepackage{graphicx}
 \usepackage{caption}
- 
-%允许表格长跨页
-\usepackage{longtable}
- 
-%伪代码用到的宏包
-\usepackage{algorithmic}
-\usepackage{algorithm}
- 
-%添加hyperref宏包
-\usepackage{hyperref}
+\captionsetup[figure]{labelsep=space}
+\captionsetup[table]{labelsep=space,skip=2pt}
+\ctexset {
+    section = {
+        name={,、},
+        number=\chinese{section},
+        aftername=,
+        beforeskip=0.6em,
+        afterskip=0.3em,
+    },
+}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.8em,topsep=1pt,parsep=0pt,itemsep=1pt}
+\usepackage{fancyhdr}
+\pagestyle{plain}
+% 段落间距压紧
+\setlength{\parskip}{2pt}
+\linespread{1.05}
 
+\title{\vspace{-2.5em}\Large\bfseries 2026 年信电学院电子设计竞赛\\大二 06 组 · 串口图像检测系统测试报告}
+\date{}
 
-
-%正文区
-\title{\Huge\bfseries 2026年信电学院电子设计竞赛}
-\date{\LARGE\bfseries 大二06组串口图像检测系统测试报告} %不显示日期
-
-%文档
 \begin{document}
-	\maketitle
-	\vspace{10em} %设置摘要与标题的间距
-	\zihao{-4} %设置正文字号
-	%摘要部分
-	% \newpage
-	\begin{abstract}
-		本文设计了一种基于串口图像传输的检测系统。系统由PC端JPG图像发送模块、
-STM32图像接收显示模块以及基于LM324运算放大器和LM339比较器的纯模拟检测模块组成。
-PC端将摄像头采集图像进行灰度化和JPEG压缩后，通过USB-TTL串口发送，
-STM32完成图像接收、解码、显示以及图像熵计算。
-模拟检测部分通过检测串口TXD信号的数据帧长度变化，实现JPEG文件大小分级，
-并利用LED完成四档显示。
-\\
-		%关键词（上文最后一段要用“\\”换行）
-		\newline
-		\noindent{\textbf{关键词：} \textbf{串口通信}\quad   \textbf{JPEG压缩}\quad \textbf{LM324}\quad \textbf{LM339}\quad \textbf{图像检测}} 
-	\end{abstract}
-	
-	\vspace{1cm}
-	\vspace{1cm}
-	\vspace{1cm}
-	\vspace{1cm}
-	\begin{table}[ht]
-		\centering  
-	\label{table:example}  % 为表格提供标签，以便于引用
-\end{table}
-	\newpage
-	\tableofcontents % 插入目录
+\maketitle
+\vspace{-3em}
+\zihao{5}
 
+\section{院赛组号}
+大二 06 组。
 
-	\newpage
+\section{系统整体架构框图}
 
-\section{测试方案与测试结果}
+\begin{center}
+\begin{minipage}{0.98\textwidth}
+\footnotesize
+\begin{verbatim}
+[PC 摄像头+JPG2COM] -- 灰度+JPEG(Q=90) --> [USB-TTL] -- UART 115200 8N1 -->
+    +--------[纯模拟检测]---------+    +----------[STM32F103VE]----------+
+    | LM324 积分/放大             |    | USART2(PA3)+DMA1_Ch6 环形收数    |
+    | LM339 四档比较 -> 4 LED    |    | FF D8/FF D9 组帧 -> TJpgDec 解码 |
+    +-----------------------------+    | 256 桶直方图 -> H, Hr           |
+                                       | 4x 放大 -> FSMC -> ILI9341       |
+                                       | H+L 闭眼检测 -> LED_RED+LCD 提示 |
+                                       +----------------------------------+
+\end{verbatim}
+\end{minipage}
+\end{center}
 
+\section{电路原理图及简单说明}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/figure/circuit.png}
+    \caption{电路原理图}
+    \label{fig:circuit}
+\end{figure}
+电路独立于单片机工作，仅高阻采样 USB-TTL 模块的 TXD 信号，采用模块化设计：
+\begin{itemize}
+\item \textbf{电源与基准}：5\,V 供电 + 滤波去耦；电阻分压 + LM324 缓冲得约 2.5\,V 基准，供全电路使用。
+\item \textbf{A · 信号整形}：TXD 经高阻电阻接 2N3904 共射极三极管，反相并整形为脉冲 UART\_CLEAN，采样电流小，对串口通信几乎无干扰。
+\item \textbf{B · BUSY 生成}：UART\_CLEAN 经二极管 + RC 网络得包络 ENV；LM324 与基准做迟滞比较输出连续 BUSY 信号，其高电平持续时间 $\approx$ 一帧 JPEG 的串口发送时长。
+\item \textbf{C · 帧长积分与保持}：BUSY 控制测量电容 C8 充电，把发送时长转成模拟电压 VMEAS；S8050 三极管在下一帧起始沿触发释放 C8，实现帧同步复位；LM324 电压跟随器缓冲 VMEAS 防止后级影响保持电压。
+\item \textbf{D · 四档比较与显示}：VMEAS 同时送入 LM339 的四路比较器，四个 10\,k$\Omega$ 电位器分别设定 300 / 520 / 780 / 1000\,byte 附近阈值；四只 LED 采用累进式显示（1、2、3、4 只依次点亮）。
+\end{itemize}
 
-\subsection{模拟检测测试}
+\section{基本部分完成情况}
 
-测试不同JPEG文件大小情况下LED显示情况。
-
+LED 分级采用的比较阈值对应题目规定的四档文件帧长度区间。
 
 \begin{table}[H]
 \centering
-\caption{文件帧长度检测结果}
+\footnotesize
+\caption{LED 分级理论对应关系与实测}
 \begin{tabular}{cccc}
 \toprule
-测试图片&文件大小(Byte)&理论等级&实际LED显示\\
+等级 & 文件帧长度范围 (byte) & LED 显示  & 实测 LED 显示 \\
 \midrule
-1&&&\\
-2&&&\\
-3&&&\\
-4&&&\\
+1 & $300 < L \le 520$   & 亮灭灭灭 &  \\
+2 & $520 < L \le 780$   & 亮亮灭灭 & \\
+3 & $780 < L \le 1000$  & 亮亮亮灭  & \\
+4 & $L > 1000$          & 亮亮亮亮  & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+从评测文件加载到 LED 稳定显示的时间间隔实测：\underline{\hspace{3em}} 秒。
 
+\section{单片机方案（串口数据读取与 JPG 图像显示）}
 
-\subsection{STM32图像显示测试}
+采用的资源与实现要点：
 
-下表中实际值指PC软件上显示的实际帧率，测量值指stm32上测量的值.
-串口负载0.8
+\begin{itemize}
+\item \textbf{串口}：USART2 (PA2/PA3, 115200 8N1) + DMA1 通道 6 循环模式常驻收数
+（8 KB 环形缓冲）；20 ms 周期任务扫描 SOI (\texttt{FF D8}) / EOI (\texttt{FF D9})
+完成组帧到 4 KB 单帧缓冲。
+\item \textbf{JPG 解码}：TJpgDec 库，\texttt{JD\_FORMAT}=2 灰度直出，工作区 4.6 KB；
+回调中同步累计 256 桶直方图。
+\item \textbf{显示}：FSMC 并口驱动 ILI9341 (320$\times$240)；源图 48$\times$36 经
+4$\times$ 最近邻放大得 192$\times$144，居中于屏幕上部；底部四行 8$\times$16 字体
+信息区显示 H/Hr、帧率、闭眼状态。
+\item \textbf{熵计算}：$H = -\sum_{i=0}^{255} p(i) \log_2 p(i)$，$H_r = H / 8$。
+\end{itemize}
+
+显示效果与精度测试（PC 端串口负载 0.8；PC = JPG2COM 面板读数，MCU = LCD 实测）：
+
 \begin{table}[H]
-\small
+\footnotesize
 \centering
-\caption{图像显示测试结果}
+\caption{STM32 图像显示与熵值实测}
 \begin{tabular}{|c|c|ccc|ccc|ccc|}
 \hline
-\multirow{2}{*}{测试项目} & \multirow{2}{*}{图像显示} & \multicolumn{3}{c|}{帧率 (fps)} & \multicolumn{3}{c|}{绝对熵} & \multicolumn{3}{c|}{相对熵} \\
+\multirow{2}{*}{测试图片} & \multirow{2}{*}{显示} & \multicolumn{3}{c|}{帧率 (fps)} & \multicolumn{3}{c|}{绝对熵 $H$} & \multicolumn{3}{c|}{相对熵 $H_r$} \\
 \cline{3-11}
- &  & 实际值 & 测量值 & 相对误差 & 实际值 & 测量值 & 相对误差 & 实际值 & 测量值 & 相对误差 \\
+ &  & PC & MCU & 误差 & PC & MCU & 误差 & PC & MCU & 误差 \\
 \hline
- 395-169\_54\_8.jpg& 显示正常  & 21.0  &15.7  &  & 1.350 & 1.613 &  & 0.169 & 0.202 &  \\
+395-169\_54\_8   & 正常 & 21.0 & 15.7 & $-25.2\%$ & 1.350 & 1.613 & $+19.5\%$ & 0.169 & 0.202 & $+19.5\%$ \\
 \hline
-500-308\_66\_7.jpg& 显示正常  & 16.0  &16.0  &  & 2.466 & 2.578 &  & 0.308 & 0.322 &  \\
+500-308\_66\_7   & 正常 & 16.0 & 16.0 & $0$       & 2.466 & 2.578 & $+4.5\%$  & 0.308 & 0.322 & $+4.5\%$ \\
 \hline
-620-410\_64\_9.jpg& 显示正常  & 13.0  &13.0  &  & 3.282 & 3.369 &  & 0.410 & 0.421 &  \\
+620-410\_64\_9   & 正常 & 13.0 & 13.0 & $0$       & 3.282 & 3.369 & $+2.7\%$  & 0.410 & 0.421 & $+2.7\%$ \\
 \hline
-1186-738\_88\_4& 显示正常  & 7.0  &7.1  &  & 5.907 & 5.973 &  & 0.738 & 0.747 &  \\
+1186-738\_88\_4  & 正常 & 7.0  & 7.1  & $+1.4\%$  & 5.907 & 5.973 & $+1.1\%$  & 0.738 & 0.747 & $+1.2\%$ \\
 \hline
-realEye1.jpg& 显示正常  & 7.0  &7.1  &  & 6.340 & 6.360 &  & 0.793 & 0.795 &  \\
+realEye1         & 正常 & 7.0  & 7.1  & $+1.4\%$  & 6.340 & 6.360 & $+0.3\%$  & 0.793 & 0.795 & $+0.3\%$ \\
 \hline
 \end{tabular}
 \end{table}
 
+低熵图像上熵值偏差稍大，源于 TJpgDec 快速定点 IDCT 与 PC 端 libjpeg 高精度
+IDCT 的 $\pm 1$ 灰度扰动，会在集中分布上产生若干新桶；高熵图像上差异可忽略。
 
-
-\subsection{闭眼检测测试}
-
+\section{芯片使用统计}
 
 \begin{table}[H]
 \centering
-\caption{闭眼检测结果}
-\begin{tabular}{cccc}
+\footnotesize
+\caption{LM324 / LM339 数量统计}
+\begin{tabular}{ccc}
 \toprule
-状态&文件大小变化&LED显示&检测结果\\
+芯片型号 & 使用数量 & 用途 \\
 \midrule
-睁眼&&&\\
-闭眼&&&\\
+LM324 & 1 & 积分、信号调理放大 \\
+LM339 & 1 & 四档窗口比较 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\section{拓展完成情况}
 
+\textbf{睁闭眼时文件帧大小变化}：睁眼时抠图区含虹膜/瞳孔与巩膜的高对比结构，
+$L$ 处于高位（通常 $\ge$ 800 byte），LED 进入高档；闭眼时视野被眼皮/皮肤覆盖，
+$L$ 落到 500\,--\,700 byte 区间，LED 进入低档。实测睁眼 $L \approx$
+\underline{\hspace{2.5em}} byte，闭眼 $L \approx$ \underline{\hspace{2.5em}} byte。
 
-\newpage
-\section*{附录}
+\textbf{闭眼判断算法思路框架}：以每帧的绝对熵 $H$ 和 JPG 文件长度 $L$ 作为双
+指标，四态迟滞状态机（\texttt{OPEN} $\to$ \texttt{MAYBE\_CLOSED} $\to$
+\texttt{CLOSED} $\to$ \texttt{MAYBE\_OPEN} $\to$ \texttt{OPEN}）：
 
-附录1：模拟检测电路原理图
+\begin{itemize}
+\item 闭眼候选：$H < H_{\mathrm{ENTER}}$ \textbf{或} $L < L_{\mathrm{THR}}$；
+\item 睁眼确认：$H \ge H_{\mathrm{EXIT}}$ \textbf{且} $L \ge L_{\mathrm{THR}}$；
+\item 时间过滤：候选持续 $\ge T_{\mathrm{CLOSE}}$ 才判 CLOSED（过滤眨眼），
+恢复需稳定 $\ge T_{\mathrm{OPEN}}$；
+\item 输出：CLOSED 时点亮 LED\_RED (PB5) + LCD 显示 "EYE CLOSED"。
+\end{itemize}
 
-附录2：PCB及实物照片
+引入 $L$ 的原因：$H$ 为位置无关的全局直方图统计，对眼睛在抠图区的位置敏感、
+闭眼时 $H$ 未必总能降到阈值以下；$L$ 反映压缩后信息量、位置耦合更弱，两者
+ 互补。默认参数：$H_{\mathrm{ENTER}}=6.35$ bit，$H_{\mathrm{EXIT}}=6.4$ bit，
+$L_{\mathrm{THR}}=700$ byte，$T_{\mathrm{CLOSE}}=800$ ms，$T_{\mathrm{OPEN}}=300$ ms。
 
-附录3：系统整体框图
-
-		
-
-	
+\textbf{测试结果}：闭眼确认延时 \underline{600\hspace{2.5em}} ms
 \end{document}
