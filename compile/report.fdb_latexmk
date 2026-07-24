@@ -1,21 +1,21 @@
 # Fdb version 4
-["makeindex compile/report.idx"] 1784685330.1786 "compile/report.idx" "compile/report.ind" "compile/report" 1784867363.45949 0
-  "compile/report.idx" 1784867362.0145 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
+["makeindex compile/report.idx"] 1784685330.1786 "compile/report.idx" "compile/report.ind" "compile/report" 1784867964.33501 0
+  "compile/report.idx" 1784867963.16787 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
   (generated)
   "compile/report.ilg"
   "compile/report.ind"
   (rewritten before read)
 ["xdvipdfmx"] 1784867362.89741 "compile/report.xdv" "compile/report.pdf" "compile/report" 1784867363.49395 0
-  "compile/report.xdv" 1784867362.50877 138256 60f9018d08271a98fc6309f928d6de58 "xelatex"
+  "compile/report.xdv" 1784867963.91009 195512 526b60d625bc2a8a39da58c0256969a4 "xelatex"
   (generated)
   "compile/report.pdf"
   (rewritten before read)
-["xelatex"] 1784867361.10539 "d:/constructing_projects/CollegeContest/report.tex" "compile/report.xdv" "report" 1784867363.46029 0
+["xelatex"] 1784867962.29307 "d:/constructing_projects/CollegeContest/report.tex" "compile/report.xdv" "report" 1784867964.3363 2
   "C:/Users/lenovo/AppData/Local/MiKTeX/miktex/data/le/xetex/xelatex.fmt" 1773212165.49064 27165494 6331bb68c4c3e70f1cd0dac2b94cbea9 ""
   "C:/WINDOWS/Fonts/msyh.ttc" 1737600631.49247 19704352 fa04b86eb9c632ef04217c3e43d81c4d ""
-  "D:/constructing_projects/CollegeContest/compile/report.aux" 1784867362.50677 4417 3d9eb9745e47bbc867a5e100da450200 ""
-  "D:/constructing_projects/CollegeContest/compile/report.out" 1784867362.50877 1903 5c886f4c766b478a5031f69c9c357f22 ""
-  "D:/constructing_projects/CollegeContest/compile/report.toc" 1784867362.50877 1512 650f1174bc0eefffc873808db9d8dd05 ""
+  "D:/constructing_projects/CollegeContest/compile/report.aux" 1784867963.90765 8642 b0f2a11235fc6f2937df09ae93f273fd ""
+  "D:/constructing_projects/CollegeContest/compile/report.out" 1784867963.90906 4059 0769119f0648e87a5dab5c209694d38d ""
+  "D:/constructing_projects/CollegeContest/compile/report.toc" 1784867963.91009 2937 51788488629678a7095374b096f623e0 ""
   "D:/program/MiKTex/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136743454 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "D:/program/MiKTex/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
   "D:/program/MiKTex/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233951848 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -168,11 +168,21 @@
   "D:/program/MiKTex/tex/xelatex/xecjk/xeCJK.cfg" 1659726270 408 7369c27beaa819c5f46de3795b22ee3e ""
   "D:/program/MiKTex/tex/xelatex/xecjk/xeCJK.sty" 1659726270 183137 ed372550124703b2b73cbcc0b47cb20f ""
   "D:/program/MiKTex/tex/xelatex/xecjk/xeCJKfntef.sty" 1659726270 39577 b470f8a1dbecc9c45c9bf05ca7db9188 ""
-  "compile/report.aux" 1784867362.50677 4417 3d9eb9745e47bbc867a5e100da450200 "xelatex"
+  "compile/module_A.png" 0 -1 0 ""
+  "compile/module_B.png" 0 -1 0 ""
+  "compile/module_C.png" 0 -1 0 ""
+  "compile/module_D.png" 0 -1 0 ""
+  "compile/power.png" 0 -1 0 ""
+  "compile/report.aux" 1784867963.90765 8642 b0f2a11235fc6f2937df09ae93f273fd "xelatex"
   "compile/report.ind" 1784685330.41448 0 d41d8cd98f00b204e9800998ecf8427e "makeindex compile/report.idx"
-  "compile/report.out" 1784867362.50877 1903 5c886f4c766b478a5031f69c9c357f22 "xelatex"
-  "compile/report.toc" 1784867362.50877 1512 650f1174bc0eefffc873808db9d8dd05 "xelatex"
-  "d:/constructing_projects/CollegeContest/report.tex" 1784867360.2116 23522 952c272d7f9101615d2198583ace1fe5 ""
+  "compile/report.out" 1784867963.90906 4059 0769119f0648e87a5dab5c209694d38d "xelatex"
+  "compile/report.toc" 1784867963.91009 2937 51788488629678a7095374b096f623e0 "xelatex"
+  "d:/constructing_projects/CollegeContest/report.tex" 1784867961.42982 31431 0852e049b5b63489266e94e401db74f0 ""
+  "module_A.png" 0 -1 0 ""
+  "module_B.png" 0 -1 0 ""
+  "module_C.png" 0 -1 0 ""
+  "module_D.png" 0 -1 0 ""
+  "power.png" 0 -1 0 ""
   "resources/figure/circuit.png" 1784725216.12899 75430 fd9941da859d1b585a16cdb04746df60 ""
   (generated)
   "compile/report.aux"
