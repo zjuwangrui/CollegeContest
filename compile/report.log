@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.3.11)  24 JUL 2026 12:39
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.3.11)  24 JUL 2026 12:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -782,41 +782,60 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count373
 \@lastruleclass=\count374
 \@thisrulewidth=\dimen305
+) (D:\program\MiKTex\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+ (D:\program\MiKTex\tex/latex/tools\array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen306
+\ar@mcellbox=\box111
+\extrarowheight=\dimen307
+\NC@list=\toks39
+\extratabsurround=\skip94
+\backup@length=\skip95
+\ar@cellbox=\box112
+)
+\TX@col@width=\dimen308
+\TX@old@table=\dimen309
+\TX@old@col=\dimen310
+\TX@target=\dimen311
+\TX@delta=\dimen312
+\TX@cols=\count375
+\TX@ftn=\toks40
 ) (D:\program\MiKTex\tex/latex/tools\longtable.sty
 Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
-\LTleft=\skip94
-\LTright=\skip95
-\LTpre=\skip96
-\LTpost=\skip97
-\LTchunksize=\count375
-\LTcapwidth=\dimen306
-\LT@head=\box111
-\LT@firsthead=\box112
-\LT@foot=\box113
-\LT@lastfoot=\box114
-\LT@gbox=\box115
-\LT@cols=\count376
-\LT@rows=\count377
-\c@LT@tables=\count378
-\c@LT@chunks=\count379
-\LT@p@ftn=\toks39
+\LTleft=\skip96
+\LTright=\skip97
+\LTpre=\skip98
+\LTpost=\skip99
+\LTchunksize=\count376
+\LTcapwidth=\dimen313
+\LT@head=\box113
+\LT@firsthead=\box114
+\LT@foot=\box115
+\LT@lastfoot=\box116
+\LT@gbox=\box117
+\LT@cols=\count377
+\LT@rows=\count378
+\c@LT@tables=\count379
+\c@LT@chunks=\count380
+\LT@p@ftn=\toks41
 ) (D:\program\MiKTex\tex/latex/algorithms\algorithmic.sty
 Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
 Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
  (D:\program\MiKTex\tex/latex/base\ifthen.sty
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
-\c@ALC@unique=\count380
-\c@ALC@line=\count381
-\c@ALC@rem=\count382
-\c@ALC@depth=\count383
-\ALC@tlm=\skip98
-\algorithmicindent=\skip99
+\c@ALC@unique=\count381
+\c@ALC@line=\count382
+\c@ALC@rem=\count383
+\c@ALC@depth=\count384
+\ALC@tlm=\skip100
+\algorithmicindent=\skip101
 ) (D:\program\MiKTex\tex/latex/algorithms\algorithm.sty
 Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
-\@float@every@algorithm=\toks40
-\c@algorithm=\count384
+\@float@every@algorithm=\toks42
+\c@algorithm=\count385
 ) (D:\program\MiKTex\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
  (D:\program\MiKTex\tex/latex/kvsetkeys\kvsetkeys.sty
@@ -836,22 +855,22 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
  (D:\program\MiKTex\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count385
+\c@section@level=\count386
 ) (D:\program\MiKTex\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count386
+\etb@tempcnta=\count387
 ) (D:\program\MiKTex\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
-\@linkdim=\dimen307
-\Hy@linkcounter=\count387
-\Hy@pagecounter=\count388
+\@linkdim=\dimen314
+\Hy@linkcounter=\count388
+\Hy@pagecounter=\count389
  (D:\program\MiKTex\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
 ) (D:\program\MiKTex\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count389
+\Hy@SavedSpaceFactor=\count390
  (D:\program\MiKTex\tex/latex/hyperref\puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 )
@@ -863,21 +882,21 @@ Package hyperref Info: Plain pages OFF on input line 4210.
 Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
-\c@Hy@tempcnt=\count390
+\c@Hy@tempcnt=\count391
  (D:\program\MiKTex\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
-\XeTeXLinkMargin=\dimen308
+\XeTeXLinkMargin=\dimen315
  (D:\program\MiKTex\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (D:\program\MiKTex\tex/generic/bigintcalc\bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count391
-\Field@Width=\dimen309
-\Fld@charsize=\dimen310
+\Fld@menulength=\count392
+\Field@Width=\dimen316
+\Fld@charsize=\dimen317
 Package hyperref Info: Hyper figures OFF on input line 6078.
 Package hyperref Info: Link nesting OFF on input line 6083.
 Package hyperref Info: Hyper index ON on input line 6086.
@@ -885,18 +904,18 @@ Package hyperref Info: backreferencing OFF on input line 6093.
 Package hyperref Info: Link coloring OFF on input line 6098.
 Package hyperref Info: Link coloring with OCG OFF on input line 6103.
 Package hyperref Info: PDF/A mode OFF on input line 6108.
-\Hy@abspage=\count392
-\c@Item=\count393
-\c@Hfootnote=\count394
+\Hy@abspage=\count393
+\c@Item=\count394
+\c@Hfootnote=\count395
 )
 Package hyperref Info: Driver (autodetected): hxetex.
  (D:\program\MiKTex\tex/latex/hyperref\hxetex.def
 File: hxetex.def 2025-07-12 v7.01o Hyperref driver for XeTeX
-\pdfm@box=\box116
-\c@Hy@AnnotLevel=\count395
-\HyField@AnnotCount=\count396
-\Fld@listcount=\count397
-\c@bookmark@seq@number=\count398
+\pdfm@box=\box118
+\c@Hy@AnnotLevel=\count396
+\HyField@AnnotCount=\count397
+\Fld@listcount=\count398
+\c@bookmark@seq@number=\count399
  (D:\program\MiKTex\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
  (D:\program\MiKTex\tex/generic/uniquecounter\uniquecounter.sty
@@ -904,30 +923,30 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
-\Hy@SectionHShift=\skip100
+\Hy@SectionHShift=\skip102
 ) (D:\constructing_projects\CollegeContest\compile\report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -970,56 +989,56 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 117.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 117.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 117.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 117.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 117.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 117.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 117.
-LaTeX Font Info:    Redeclaring math accent \check on input line 117.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 117.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 117.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 117.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 117.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 117.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 123.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 123.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 123.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 123.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 123.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 123.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 123.
+LaTeX Font Info:    Redeclaring math accent \check on input line 123.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 123.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 123.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 123.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 123.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 123.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 117.
+(Font)              `operators' in the math version `normal' on input line 123.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 117.
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 123.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 117.
+(Font)              `operators' in the math version `bold' on input line 123.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 117.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 123.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 117.
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 117.
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 117.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 117.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 117.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 123.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 117.
+(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 117.
+(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 117.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 117.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 123.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: hyperref package is loaded.
@@ -1029,17 +1048,17 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count399
-Package hyperref Info: Link coloring OFF on input line 117.
+\c@lstlisting=\count400
+Package hyperref Info: Link coloring OFF on input line 123.
  (D:\constructing_projects\CollegeContest\compile\report.out) (D:\constructing_projects\CollegeContest\compile\report.out)
 \@outlinefile=\write5
 \openout5 = `report.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 119.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 125.
  (D:\program\MiKTex\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 119.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 125.
  (D:\program\MiKTex\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -1047,7 +1066,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Warning: No \author given.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--134
+Underfull \hbox (badness 10000) in paragraph at lines 130--140
 
  []
 
@@ -1085,1029 +1104,157 @@ Package fontspec Info:
 (fontspec)             <->"FangSong/OT:script=hani;language=dflt;"
 
 
-Overfull \hbox (34.73581pt too wide) in paragraph at lines 194--194
+Overfull \hbox (34.73581pt too wide) in paragraph at lines 200--200
 []             \TU/lmtt/m/n/12.045 |                              USART2 + DMA1_Ch6  \TU/FangSong(0)/m/n/12.045 常 驻 收 数 [] 
  []
 
 
-Overfull \hbox (16.13829pt too wide) in paragraph at lines 194--194
+Overfull \hbox (16.13829pt too wide) in paragraph at lines 200--200
 []                                              \TU/lmtt/m/n/12.045 +---------+---------+[] 
  []
 
 
-Overfull \hbox (16.13829pt too wide) in paragraph at lines 194--194
+Overfull \hbox (16.13829pt too wide) in paragraph at lines 200--200
 []                                              \TU/lmtt/m/n/12.045 |                   |[] 
  []
 
 
-Overfull \hbox (40.93896pt too wide) in paragraph at lines 194--194
+Overfull \hbox (40.93896pt too wide) in paragraph at lines 200--200
 []                                     \TU/lmtt/m/n/12.045 4x  \TU/FangSong(0)/m/n/12.045 最 近 邻 放 大          \TU/lmtt/m/n/12.045 256  \TU/FangSong(0)/m/n/12.045 桶 直 方 图 [] 
  []
 
 
-Overfull \hbox (9.9231pt too wide) in paragraph at lines 194--194
+Overfull \hbox (9.9231pt too wide) in paragraph at lines 200--200
 []                                     \TU/lmtt/m/n/12.045 192x144                     |[] 
  []
 
 
-Overfull \hbox (34.74782pt too wide) in paragraph at lines 194--194
+Overfull \hbox (34.74782pt too wide) in paragraph at lines 200--200
 []                                              \TU/lmtt/m/n/12.045 |             H, Hr  \TU/FangSong(0)/m/n/12.045 计 算 [] 
  []
 
 
-Overfull \hbox (16.13829pt too wide) in paragraph at lines 194--194
+Overfull \hbox (16.13829pt too wide) in paragraph at lines 200--200
 []                                              \TU/lmtt/m/n/12.045 v                   |[] 
  []
 
 
-Overfull \hbox (22.32947pt too wide) in paragraph at lines 194--194
+Overfull \hbox (22.32947pt too wide) in paragraph at lines 200--200
 []                                     \TU/lmtt/m/n/12.045 FSMC -> ILI9341         \TU/FangSong(0)/m/n/12.045 闭 眼 检 测 [] 
  []
 
 
-Overfull \hbox (78.1701pt too wide) in paragraph at lines 194--194
+Overfull \hbox (78.1701pt too wide) in paragraph at lines 200--200
 []                                     \TU/lmtt/m/n/12.045 LCD 320x240  \TU/FangSong(0)/m/n/12.045 显 示         状 态 机  \TU/lmtt/m/n/12.045 -> LED_RED[] 
  []
 
-d:/constructing_projects/CollegeContest/report.tex:205: Undefined control sequence.
-l.205 ...反相，最终UART\_CLEAN与原始TXD同相。两级集电极均采用$10\unit
-                                                  {k\Omega}$上拉，基极串联$47\unit{...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:205: Undefined control sequence.
-l.205 ...两级集电极均采用$10\unit{k\Omega}$上拉，基极串联$47\unit
-                                                  {k\Omega}$限流并配置$220\unit{k...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:205: Undefined control sequence.
-l.205 ...}$上拉，基极串联$47\unit{k\Omega}$限流并配置$220\unit
-                                                  {k\Omega}$下拉。该结构既降低了对串口源端的...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
 [3]
-d:/constructing_projects/CollegeContest/report.tex:211: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.211 ...越长，C8电压越高。U1.3接成电压跟随器，对积分电容进行缓冲并输出$\VMEAS
-                                                  $，避免后级比较器和测量仪表改变积分时间常数。
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:214: Undefined control sequence.
-l.214 模块D使用LM339的四个比较器通道。四个$10\unit
-                                   {k\Omega}$电位器由2.5 V基准供电，分别产生四个递增参考电压。$\VM...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:214: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.214 ...Omega}$电位器由2.5 V基准供电，分别产生四个递增参考电压。$\VMEAS
-                                                  $同时送入四路比较器，当$\VMEAS$依次超过各档...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:214: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.214 ...电，分别产生四个递增参考电压。$\VMEAS$同时送入四路比较器，当$\VMEAS
-                                                  $依次超过各档阈值时，相应LM339开集电极输出导通...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:214: Undefined control sequence.
-l.214 ...MEAS$依次超过各档阈值时，相应LM339开集电极输出导通，经$2.2\unit
-                                                  {k\Omega}$限流电阻吸收LED电流，使LED...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:224: Undefined control sequence.
-l.224 $N\le 300$ & 初始/低于第一档 & \ledstate
-                                       {0000}（全灭）\\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:225: Undefined control sequence.
-l.225 $300<N\le 520$ & 第1档 & \ledstate
-                                      {1000}\\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:226: Undefined control sequence.
-l.226 $520<N\le 780$ & 第2档 & \ledstate
-                                      {1100}\\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:227: Undefined control sequence.
-l.227 $780<N\le 1000$ & 第3档 & \ledstate
-                                       {1110}\\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:228: Undefined control sequence.
-l.228 $N>1000$ & 第4档 & \ledstate
-                                {1111}\\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
 [4] [5]
-d:/constructing_projects/CollegeContest/report.tex:263: Undefined control sequence.
-l.263 T_{\mathrm{frame}}=86.806N\unit
-                                     {\mu s}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:286: Undefined control sequence.
-<argument> 47\unit 
-                   {k\Omega }
-l.286 I_{B1}\approx\frac{5-0.7}{47\unit{k\Omega}}
-                                                 -\frac{0.7}{220\unit{k\Omeg...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:286: Undefined control sequence.
-<argument> 220\unit 
-                    {k\Omega }
-l.286 ...t{k\Omega}}-\frac{0.7}{220\unit{k\Omega}}
-                                                  \approx88\unit{\mu A}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:286: Undefined control sequence.
-l.286 ...rac{0.7}{220\unit{k\Omega}}\approx88\unit
-                                                  {\mu A}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:288: Undefined control sequence.
-l.288 而集电极上拉电流约为$5/10\unit
-                          {k\Omega}=0.5\unit{mA}$，具有足够的饱和驱动裕量。对USB--TTL输出端而言...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:288: Undefined control sequence.
-l.288 而集电极上拉电流约为$5/10\unit{k\Omega}=0.5\unit
-                                            {mA}$，具有足够的饱和驱动裕量。对USB--TTL输出端而言...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:288: Undefined control sequence.
-l.288 ...够的饱和驱动裕量。对USB--TTL输出端而言，额外负载电流低于$0.1\unit
-                                                  {mA}$，远小于普通TTL/CMOS驱动能力。两级...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:293: Undefined control sequence.
-l.293 \tau_B=R_6C_6=47\unit
-                           {k\Omega}\times10\unit{nF}=0.47\unit{ms}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:293: Undefined control sequence.
-l.293 \tau_B=R_6C_6=47\unit{k\Omega}\times10\unit
-                                                 {nF}=0.47\unit{ms}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:293: Undefined control sequence.
-l.293 ...\unit{k\Omega}\times10\unit{nF}=0.47\unit
-                                                  {ms}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:297: Undefined control sequence.
-l.297 V_{TB}=2.5\times\frac{15}{10+15}=1.50\unit
-                                                {V}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:299: Undefined control sequence.
-l.299 即使某一字节数据全为1，相邻两个起始位间隔也仅为$86.8\unit
-                                        {\mu s}$，明显小于$0.47\unit{ms}$，所以传输过程中...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:299: Undefined control sequence.
-l.299 ...起始位间隔也仅为$86.8\unit{\mu s}$，明显小于$0.47\unit
-                                                  {ms}$，所以传输过程中包络不会恢复到1.5 V以...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:301: Undefined control sequence.
-l.301 ...\frac{2.5-0.65}{2.5-1.50}\approx0.29\unit
-                                                  {ms}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:308: Undefined control sequence.
-l.308 \tau_C=R_{14}C_8=100\unit
-                               {k\Omega}\times1\unit{\mu F}=0.10\unit{s}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:308: Undefined control sequence.
-l.308 ...C=R_{14}C_8=100\unit{k\Omega}\times1\unit
-                                                  {\mu F}=0.10\unit{s}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:308: Undefined control sequence.
-l.308 ...nit{k\Omega}\times1\unit{\mu F}=0.10\unit
-                                                  {s}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
 [6]
-d:/constructing_projects/CollegeContest/report.tex:312: Undefined control sequence.
-l.312 \VMEAS
-            (N)=V_S\left[1-\exp\left(-\frac{10N}{115200R_{14}C_8}\right)\rig...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:315: Undefined control sequence.
-l.315 在本设计计算中取$V_S=3.2\unit
-                           {V}$作为电位器初调依据。由于指数函数在本题范围内严格单调，文件越大，$\VMEAS$越高。实际...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:315: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.315 ...}$作为电位器初调依据。由于指数函数在本题范围内严格单调，文件越大，$\VMEAS
-                                                  $越高。实际样机中$V_S$会受LM324高电平摆幅...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:343: Undefined control sequence.
-l.343 LM339输出为开集电极结构，LED与$2.2\unit
-                                  {k\Omega}$电阻串联后接至5 V。当比较器导通时，若LED正向压降约为2.0...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:345: Undefined control sequence.
-<argument> 2.2\unit 
-                    {k\Omega }
-l.345 ...approx\frac{5-2.0-0.2}{2.2\unit{k\Omega}}
-                                                  \approx1.27\unit{mA}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:345: Undefined control sequence.
-l.345 ...0-0.2}{2.2\unit{k\Omega}}\approx1.27\unit
-                                                  {mA}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
 [7] [8]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 405.
- [9] [10]
-d:/constructing_projects/CollegeContest/report.tex:468: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.468 ...调试。调试时可依次观察UART\_CLEAN波形、BUSY脉冲宽度和$\VMEAS
-                                                  $，快速定位故障所在级。
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 411.
+ [9]
+File: resources/figure/module_A.png Graphic file (type bmp)
+<resources/figure/module_A.png>
 
-
-LaTeX Warning: File `module_A.png' not found on input line 473.
-
-d:/constructing_projects/CollegeContest/report.tex:473: Unable to load picture or PDF file 'module_A.png'.
-<to be read again> 
-                   }
-l.473 ...phics[width=0.98\textwidth]{module_A.png}
-                                                  
-The requested image couldn't be read because
-it was not a recognized image format.
-
-
-d:/constructing_projects/CollegeContest/report.tex:473: Package graphics Error: Division by 0.
-
-See the graphics package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.473 ...phics[width=0.98\textwidth]{module_A.png}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-File: module_A.png Graphic file (type bmp)
-<module_A.png>
-d:/constructing_projects/CollegeContest/report.tex:478: Undefined control sequence.
-l.478 Q4和Q1均采用2N3904。R1、R20为$47\unit
-                                    {k\Omega}$基极限流电阻，R2、R19为$220\unit{k\Omeg...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:478: Undefined control sequence.
-l.478 ...$47\unit{k\Omega}$基极限流电阻，R2、R19为$220\unit
-                                                  {k\Omega}$基极下拉，R18、R21为$10...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:478: Undefined control sequence.
-l.478 ...为$220\unit{k\Omega}$基极下拉，R18、R21为$10\unit
-                                                  {k\Omega}$集电极上拉。第一级把TXD高电平...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-LaTeX Warning: File `module_B.png' not found on input line 483.
-
-d:/constructing_projects/CollegeContest/report.tex:483: Unable to load picture or PDF file 'module_B.png'.
-<to be read again> 
-                   }
-l.483 ...phics[width=0.87\textwidth]{module_B.png}
-                                                  
-The requested image couldn't be read because
-it was not a recognized image format.
-
-
-d:/constructing_projects/CollegeContest/report.tex:483: Package graphics Error: Division by 0.
-
-See the graphics package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.483 ...phics[width=0.87\textwidth]{module_B.png}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-File: module_B.png Graphic file (type bmp)
-<module_B.png>
-d:/constructing_projects/CollegeContest/report.tex:488: Undefined control sequence.
-l.488 ...。U1.1使用LM324的第1个通道作开环比较，输出BUSY。R9为$1\unit
-                                                  {M\Omega}$弱下拉，使后级断开或上电瞬间输出...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-LaTeX Warning: File `module_C.png' not found on input line 493.
-
-d:/constructing_projects/CollegeContest/report.tex:493: Unable to load picture or PDF file 'module_C.png'.
-<to be read again> 
-                   }
-l.493 ...phics[width=0.90\textwidth]{module_C.png}
-                                                  
-The requested image couldn't be read because
-it was not a recognized image format.
-
-
-d:/constructing_projects/CollegeContest/report.tex:493: Package graphics Error: Division by 0.
-
-See the graphics package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.493 ...phics[width=0.90\textwidth]{module_C.png}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-File: module_C.png Graphic file (type bmp)
-<module_C.png>
-d:/constructing_projects/CollegeContest/report.tex:498: Undefined control sequence.
-l.498 C7、R15和R16构成上升沿触发网络，Q2采用S8050，R17的$10\unit
-                                                {\Omega}$电阻限制C8快速放电时的峰值电流。D3...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:498: Undefined control sequence.
-l.498 ...USY高电平向C8充电，避免BUSY变低后通过前级反向放电。C8采用$1\unit
-                                                  {\mu F}$陶瓷电容以减小漏电和容量漂移，U1....
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:498: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.498 ...}$陶瓷电容以减小漏电和容量漂移，U1.3接成单位增益电压跟随器输出$\VMEAS
-                                                  $。
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-LaTeX Warning: File `module_D.png' not found on input line 503.
-
-d:/constructing_projects/CollegeContest/report.tex:503: Unable to load picture or PDF file 'module_D.png'.
-<to be read again> 
-                   }
-l.503 ...phics[width=0.98\textwidth]{module_D.png}
-                                                  
-The requested image couldn't be read because
-it was not a recognized image format.
-
-
-d:/constructing_projects/CollegeContest/report.tex:503: Package graphics Error: Division by 0.
-
-See the graphics package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.503 ...phics[width=0.98\textwidth]{module_D.png}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-File: module_D.png Graphic file (type bmp)
-<module_D.png>
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+File: resources/figure/module_B.png Graphic file (type bmp)
+<resources/figure/module_B.png>
+[10]
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+File: resources/figure/module_C.png Graphic file (type bmp)
+<resources/figure/module_C.png>
 [11]
-d:/constructing_projects/CollegeContest/report.tex:508: Undefined control sequence.
-l.508 四个电位器Rn1--Rn4均为$10\unit
-                             {k\Omega}$，上端接2.5 V基准、下端接地，滑动端分别接LM339四路同相输入；$\...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+File: resources/figure/module_D.png Graphic file (type bmp)
+<resources/figure/module_D.png>
+[12]
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
+File: resources/figure/power.png Graphic file (type bmp)
+<resources/figure/power.png>
+Missing character: There is no 
+ in font [lmroman12-regular]:mapping=tex-text;!
 
-d:/constructing_projects/CollegeContest/report.tex:508: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.508 ...上端接2.5 V基准、下端接地，滑动端分别接LM339四路同相输入；$\VMEAS
-                                                  $接四路反相输入。当$\VMEAS$高于某路参考电压...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:508: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.508 ...动端分别接LM339四路同相输入；$\VMEAS$接四路反相输入。当$\VMEAS
-                                                  $高于某路参考电压时，该路LM339输出晶体管导通并...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-LaTeX Warning: File `power.png' not found on input line 513.
-
-d:/constructing_projects/CollegeContest/report.tex:513: Unable to load picture or PDF file 'power.png'.
-<to be read again> 
-                   }
-l.513 ...graphics[width=0.98\textwidth]{power.png}
-                                                  
-The requested image couldn't be read because
-it was not a recognized image format.
-
-
-d:/constructing_projects/CollegeContest/report.tex:513: Package graphics Error: Division by 0.
-
-See the graphics package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.513 ...graphics[width=0.98\textwidth]{power.png}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-File: power.png Graphic file (type bmp)
-<power.png>
-d:/constructing_projects/CollegeContest/report.tex:518: Undefined control sequence.
-l.518 ...频噪声，C2（10 $\mu$F）提供低频储能。R10、R11各为$10\unit
-                                                  {k\Omega}$，产生2.5 V中点；C5进一步...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Overfull \hbox (6.39177pt too wide) in alignment at lines 522--527
+Overfull \hbox (6.39177pt too wide) in alignment at lines 527--532
  [] [] [] [] 
  []
 
 
-Overfull \hbox (6.39177pt too wide) in alignment at lines 527--531
+Overfull \hbox (6.39177pt too wide) in alignment at lines 532--536
  [] [] [] [] 
  []
 
-d:/constructing_projects/CollegeContest/report.tex:533: Undefined control sequence.
-l.533 A & R1、R20 & $47\unit
-                           {k\Omega}$ & 限制基极电流并提高输入阻抗 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
+Missing character: There is no 
+ in font [lmroman9-regular]:mapping=tex-text;!
 
-d:/constructing_projects/CollegeContest/report.tex:534: Undefined control sequence.
-l.534 A & R2、R19 & $220\unit
-                            {k\Omega}$ & 基极下拉，保证输入悬空时关断 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:535: Undefined control sequence.
-l.535 A & R18、R21 & $10\unit
-                            {k\Omega}$ & 集电极上拉，形成0/5 V开关波形 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:537: Undefined control sequence.
-l.537 B & R6、C6 & $47\unit
-                          {k\Omega}$、10 nF & 构成$0.47\unit{ms}$保持网络 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:537: Undefined control sequence.
-l.537 ...& $47\unit{k\Omega}$、10 nF & 构成$0.47\unit
-                                                  {ms}$保持网络 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:538: Undefined control sequence.
-l.538 B & R7、R8 & $10\unit
-                          {k\Omega}$、$15\unit{k\Omega}$ & 由2.5 V产生1.5 V比较阈值 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:538: Undefined control sequence.
-l.538 B & R7、R8 & $10\unit{k\Omega}$、$15\unit
-                                             {k\Omega}$ & 由2.5 V产生1.5 V比较阈值 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:539: Undefined control sequence.
-l.539 C & C7、R15、R16 & 10 nF、$2.2\unit
-                                      {k\Omega}$、$22\unit{k\Omega}$ & 产生帧开始复...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:539: Undefined control sequence.
-l.539 ...、R16 & 10 nF、$2.2\unit{k\Omega}$、$22\unit
-                                                  {k\Omega}$ & 产生帧开始复位脉冲 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:540: Undefined control sequence.
-l.540 C & Q2、R17 & S8050、$10\unit
-                                 {\Omega}$ & 快速放电积分电容 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:541: Undefined control sequence.
-l.541 C & D2、R14、C8 & 1N4148、$100\unit
-                                      {k\Omega}$、1 $\mu$F & BUSY脉冲积分，时间常数100...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:542: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.542 C & U1.3 & LM324 & 缓冲$\VMEAS
-                                  $ \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:544: Undefined control sequence.
-l.544 D & Rn1--Rn4 & $10\unit
-                             {k\Omega}$电位器 & 设置四档参考电压 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:545: Undefined control sequence.
-l.545 D & RLED1--4 & $2.2\unit
-                              {k\Omega}$ & LED限流 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:546: Undefined control sequence.
-l.546 电源 & R10、R11、C5 & $10\unit
-                                {k\Omega}$、$10\unit{k\Omega}$、100 nF & 生成并滤波...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:546: Undefined control sequence.
-l.546 ... R10、R11、C5 & $10\unit{k\Omega}$、$10\unit
-                                                  {k\Omega}$、100 nF & 生成并滤波2...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Overfull \hbox (6.39177pt too wide) in alignment at lines 531--549
+Overfull \hbox (6.39177pt too wide) in alignment at lines 536--554
  [] [] [] [] 
  []
 
-[12] [13] [14]
-
-d:/constructing_projects/CollegeContest/report.tex:643: LaTeX Error: Environment tabularx undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.643 \begin{tabularx}
-                      {\textwidth}{p{2.8cm}p{3.4cm}X p{1.4cm}}
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-d:/constructing_projects/CollegeContest/report.tex:643: Missing number, treated as zero.
-<to be read again> 
-                   }
-l.643 \begin{tabularx}{\textwidth}
-                                  {p{2.8cm}p{3.4cm}X p{1.4cm}}
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-d:/constructing_projects/CollegeContest/report.tex:643: Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.643 \begin{tabularx}{\textwidth}
-                                  {p{2.8cm}p{3.4cm}X p{1.4cm}}
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-d:/constructing_projects/CollegeContest/report.tex:644: Misplaced \noalign.
-\toprule ->\noalign 
-                    {\ifnum 0=`}\fi \@aboverulesep =\abovetopsep \global \@b...
-l.644 \toprule
-              
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/constructing_projects/CollegeContest/report.tex:645: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.645 检查点 &
-            预期现象 & 调试观察 & 结论 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:645: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.645 检查点 & 预期现象 &
-                   调试观察 & 结论 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:645: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.645 检查点 & 预期现象 & 调试观察 &
-                          结论 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:646: Misplaced \noalign.
-\midrule ->\noalign 
-                    {\ifnum 0=`}\fi \@aboverulesep =\aboverulesep \global \@...
-l.646 \midrule
-              
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-d:/constructing_projects/CollegeContest/report.tex:647: Misplaced alignment tab character &.
-l.647 UART\_CLEAN &
-                    与TXD同相，逻辑幅度完整 & 空闲为高电平，发送矩形波时出现清晰信号波形 & 正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:647: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.647 UART\_CLEAN & 与TXD同相，逻辑幅度完整 &
-                                    空闲为高电平，发送矩形波时出现清晰信号波形 & 正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:647: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.647 ...& 与TXD同相，逻辑幅度完整 & 空闲为高电平，发送矩形波时出现清晰信号波形 &
-                                                   正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:648: Misplaced alignment tab character &.
-l.648 BUSY &
-             一帧期间持续为高，帧间回到低 & 帧内无明显断裂，帧结束后迅速恢复低电平 & 正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:648: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.648 BUSY & 一帧期间持续为高，帧间回到低 &
-                              帧内无明显断裂，帧结束后迅速恢复低电平 & 正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:648: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.648 ... & 一帧期间持续为高，帧间回到低 & 帧内无明显断裂，帧结束后迅速恢复低电平 &
-                                                   正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:649: Undefined control sequence.
-<recently read> \VMEAS 
-                       
-l.649 $\VMEAS
-             $ & 每帧开始清零，随帧长增加 & 小文件电压低，大文件电压高，切换文件后下一帧即可更新 & 正常 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-d:/constructing_projects/CollegeContest/report.tex:649: Misplaced alignment tab character &.
-l.649 $\VMEAS$ &
-                 每帧开始清零，随帧长增加 & 小文件电压低，大文件电压高，切换文件后下一帧即可更新 & 正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:649: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.649 $\VMEAS$ & 每帧开始清零，随帧长增加 &
-                                小文件电压低，大文件电压高，切换文件后下一帧即可更新 & 正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:649: Misplaced alignment tab character &.
-<recently read> &
-                 
-l.649 ...开始清零，随帧长增加 & 小文件电压低，大文件电压高，切换文件后下一帧即可更新 &
-                                                   正常 \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-d:/constructing_projects/CollegeContest/report.tex:650: Misplaced \noalign.
-\bottomrule ->\noalign 
-                       {\ifnum 0=`}\fi \@aboverulesep =\aboverulesep \global...
-l.650 \bottomrule
-                 
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-d:/constructing_projects/CollegeContest/report.tex:651: LaTeX Error: \begin{table} on input line 639 ended by \end{tabularx}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.651 \end{tabularx}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-Overfull \hbox (69.32455pt too wide) in paragraph at lines 663--680
+[13] [14] [15]
+Overfull \hbox (71.72452pt too wide) in paragraph at lines 668--685
  [][] 
  []
 
-[15] [16] (D:\constructing_projects\CollegeContest\compile\report.aux)
+[16] [17] (D:\constructing_projects\CollegeContest\compile\report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
@@ -2116,12 +1263,12 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 0769119F0648E87A5DAB5C209694D38D;4059.
  ) 
 Here is how much of TeX's memory you used:
- 23864 strings out of 402987
- 493563 string characters out of 5454113
- 960103 words of memory out of 5000000
- 52185 multiletter control sequences out of 15000+600000
+ 23773 strings out of 402987
+ 491434 string characters out of 5454113
+ 962890 words of memory out of 5000000
+ 52088 multiletter control sequences out of 15000+600000
  639654 words of font info for 124 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 94i,11n,133p,1228b,880s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,13n,133p,1228b,880s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on D:\constructing_projects\CollegeContest\compile\report.xdv (16 pages, 195512 bytes).
+Output written on D:\constructing_projects\CollegeContest\compile\report.xdv (17 pages, 198664 bytes).

@@ -15,18 +15,18 @@
 \contentsline {subsection}{\numberline {2.6}LED输出电流}{7}{subsection.2.6}%
 \contentsline {subsection}{\numberline {2.7}图像熵值计算原理}{8}{subsection.2.7}%
 \contentsline {subsection}{\numberline {2.8}闭眼检测算法原理}{8}{subsection.2.8}%
-\contentsline {section}{\numberline {三、}电路与程序设计}{11}{section.3}%
-\contentsline {subsection}{\numberline {3.1}模拟检测电路总述}{11}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}模块A电路：缓冲与整形}{11}{subsection.3.2}%
+\contentsline {section}{\numberline {三、}电路与程序设计}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}模拟检测电路总述}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}模块A电路：缓冲与整形}{10}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}模块B电路：BUSY提取}{11}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}模块C电路：复位积分与缓冲}{11}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}模块D电路：四档比较与显示}{12}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}电源与2.5 V基准}{12}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}关键器件与参数汇总}{12}{subsection.3.7}%
-\contentsline {subsection}{\numberline {3.8}STM32程序设计}{13}{subsection.3.8}%
-\contentsline {subsection}{\numberline {3.9}芯片使用统计}{14}{subsection.3.9}%
-\contentsline {section}{\numberline {四、}测试方案与测试结果}{15}{section.4}%
-\contentsline {subsection}{\numberline {4.1}模拟检测测试}{15}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}STM32图像显示测试}{15}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}闭眼检测测试}{15}{subsection.4.3}%
-\contentsline {section}{\numberline {五、}结论}{16}{section.5}%
+\contentsline {subsection}{\numberline {3.4}模块C电路：复位积分与缓冲}{12}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}模块D电路：四档比较与显示}{13}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}电源与2.5 V基准}{13}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}关键器件与参数汇总}{13}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}STM32程序设计}{14}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}芯片使用统计}{15}{subsection.3.9}%
+\contentsline {section}{\numberline {四、}测试方案与测试结果}{16}{section.4}%
+\contentsline {subsection}{\numberline {4.1}模拟检测测试}{16}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}STM32图像显示测试}{16}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}闭眼检测测试}{16}{subsection.4.3}%
+\contentsline {section}{\numberline {五、}结论}{17}{section.5}%
